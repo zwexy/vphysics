@@ -8,7 +8,6 @@ public:
 	static void memcpy(void *dest, const void *source, int size);
 
 };
-typedef hk_String hkString;
 
 #endif /* HK_BASE_STRING_H */
 
