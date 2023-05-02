@@ -19,7 +19,7 @@ include_directories(${SRCDIR}/ivp/ivp_controller)
 add_definitions(-D_LIB -DHAVANA_CONSTRAINTS -DIVP_VERSION_SDK)
 
 if( LINUXALL )
-    target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition)
+    target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition -fno-strict-aliasing)
 endif()
 
 target_sources(${OUTLIBNAME} PRIVATE constraint.cpp)
