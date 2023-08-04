@@ -71,12 +71,6 @@ inline IVP_FLOAT IVP_Inline_Math::save_acosf(IVP_FLOAT angle) {
     return angle >= 1.0f ? 0.0f : IVP_Inline_Math::acosd(angle);
 }
 
-
-inline int IVP_Inline_Math::int_div_2(int a) {
-    // workaround for compiler bug in CodeWarrior1.6
-    return a/2;
-}
-
 // an acos approximation whose absolute value is always less than abs(asin(angle))
 // it differs not more than 0.0005 when abs(angle) < 0.5f
 // and it differs with 0.2 when abs(angle) == 1.0f

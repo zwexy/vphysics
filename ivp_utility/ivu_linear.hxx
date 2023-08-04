@@ -294,8 +294,6 @@ public:
     static IVP_FLOAT isqrt_float(IVP_FLOAT quad); //   "
     static IVP_DOUBLE isqrt_double(IVP_DOUBLE quad); //   "
 
-    static inline int int_div_2(int a); //workaround for compiler bug in CodeWarrior1.6
-
 #if defined(IVP_NO_DOUBLE) && !defined(SUN)
     static IVP_DOUBLE fabsd(IVP_DOUBLE f){ return fabsf(f); };
     static IVP_DOUBLE ivp_sqrtf(IVP_DOUBLE f){ return sqrtf(f); };
