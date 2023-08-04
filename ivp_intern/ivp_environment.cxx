@@ -55,13 +55,7 @@
 
 #include <ivp_betterstatisticsmanager.hxx>
 
-#include <ivp_authenticity.hxx>
-
 #include "ivp_polygon.hxx"
-
-#if !defined(IVP_VERSION_SDK) && !defined(IVP_VERSION_EVAL)
-#   pragma error("You have to define IVP_VERSION_SDK or IVP_VERSION_EVAL")
-#endif
 
 IVP_Freeze_Manager::IVP_Freeze_Manager(){
     init_freeze_manager();
@@ -933,36 +927,6 @@ void IVP_Environment::simulate_psi(IVP_Time /*psi_time*/){
 #ifdef IVP_ENABLE_PERFORMANCE_COUNTER
 	get_performancecounter()->pcount(IVP_PE_PSI_END);
 #endif
-
-
-#if defined(WIN32) && defined(IVP_VERSION_EVAL)  /* blocking only if original ivp_authenticity.hxx is used */
-    {
-        // IVP_BLOCKING_EVERY_MIN    
-	time_since_last_blocking += get_delta_PSI_time();
-	//do some blocking from time to time
-	if( time_since_last_blocking>121.1f) {
-	    time_since_last_blocking=0.0f;
-
-		int t;
-
-#ifdef IVP_BLOCKING_ALWAYS
-	    this->do_d_events();
-#else
-
-#ifdef WIN32
-	    time_t tt = time(NULL);
-		t = (int)tt;
-#endif
-	    if ( t > 983404800 // 1 Mar 01 @@CB
-		+ 60*60*24* (
-		31 + 30 + 31 ) ){ // expiration date 31 May 01 @@CB
-		this->do_d_events();
-	    }
-#endif
-	}
-    }
-#endif
-
 
     this->state = IVP_ES_AT;
     return;
