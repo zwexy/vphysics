@@ -5,9 +5,7 @@
 #ifndef _IVP_U_LINEAR_MACROS_INCLUDED
 #define _IVP_U_LINEAR_MACROS_INCLUDED
 
-#if defined(IVP_USE_PS2_VU0)
-#   include "ivu_linear_ps2.hxx"
-#elif defined(IVP_PIII)
+#if defined(IVP_PIII)
 #   include "ivu_linear_PIII.hxx"
 #else
 #   include "ivu_linear_software.hxx"
@@ -75,18 +73,8 @@ inline IVP_FLOAT IVP_Inline_Math::save_acosf(IVP_FLOAT angle) {
 
 
 inline int IVP_Inline_Math::int_div_2(int a) {
-#ifdef PSXII
-    //workaround for compiler bug in CodeWarrior1.6
-    if(a<0) {
-	int h=-a;
-	h=h>>1;
-	return -h;
-    } else {
-	return a>>1;
-    }
-#else
+    // workaround for compiler bug in CodeWarrior1.6
     return a/2;
-#endif
 }
 
 // an acos approximation whose absolute value is always less than abs(asin(angle))

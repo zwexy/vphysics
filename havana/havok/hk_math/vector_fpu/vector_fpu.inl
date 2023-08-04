@@ -8,28 +8,6 @@ inline void hk_VecFPU::fpu_add_multiple_row(hk_real *target_adress,hk_real *sour
 	size += (intp(source_adress)-result_adress)>>hk_VecFPU_MEMSHIFT_FLOAT;
 	source_adress=(hk_real *)result_adress;
     }
-
-#if defined(IVP_USE_PS2_VU0)
-
-    asm __volatile__("
-        mfc1    $8,%3
-        qmtc2    $8,vf5		# vf5.x   factor
-    1:
-	lqc2    vf4,0x0(%1)     # vf4 *source
-	vmulx.xyzw vf6,vf4,vf5  # vf6 *source * factor
-	lqc2    vf4,0x0(%0)
-	addi    %0, 0x10
-	vadd.xyzw vf6,vf4,vf6   # vf6 = *dest + factor * *source
-	addi    %2,-4
-	addi    %1, 0x10
-	sqc2    vf6,-0x10(%0)
-	bgtz    %2,1b
-	nop
-	"
-	: /* no output */
-	: "r" (target_adress), "r" (source_adress) , "r" (size), "f" (factor)
-	: "$8" , "memory");
-#else
 #if 0
 #       if defined(IVP_WILLAMETTE)
 	    ;
@@ -77,7 +55,6 @@ inline void hk_VecFPU::fpu_add_multiple_row(hk_real *target_adress,hk_real *sour
 	    source_adress+=hk_VecFPU_SIZE_FLOAT;
 		
 	}
-#endif
 }
 
 inline hk_real hk_VecFPU::fpu_large_dot_product(hk_real *base_a, hk_real *base_b, int size, hk_bool adress_aligned) {
@@ -308,28 +285,6 @@ inline void hk_VecFPU::fpu_add_multiple_row(hk_double *target_adress,hk_double *
 	size += (intp(source_adress)-result_adress)>>hk_VecFPU_MEMSHIFT_DOUBLE;
 	source_adress=(hk_double *)result_adress;
     }
-
-#if defined(IVP_USE_PS2_VU0)
-
-    asm __volatile__("
-        mfc1    $8,%3
-        qmtc2    $8,vf5		# vf5.x   factor
-    1:
-	lqc2    vf4,0x0(%1)     # vf4 *source
-	vmulx.xyzw vf6,vf4,vf5  # vf6 *source * factor
-	lqc2    vf4,0x0(%0)
-	addi    %0, 0x10
-	vadd.xyzw vf6,vf4,vf6   # vf6 = *dest + factor * *source
-	addi    %2,-4
-	addi    %1, 0x10
-	sqc2    vf6,-0x10(%0)
-	bgtz    %2,1b
-	nop
-	"
-	: /* no output */
-	: "r" (target_adress), "r" (source_adress) , "r" (size), "f" (factor)
-	: "$8" , "memory");
-#else
 	if(0) {
 #       if defined(IVP_WILLAMETTE)
 	    ;
@@ -376,7 +331,6 @@ inline void hk_VecFPU::fpu_add_multiple_row(hk_double *target_adress,hk_double *
 	    source_adress+=hk_VecFPU_SIZE_DOUBLE;
 		}
 	}
-#endif
 }
 
 inline hk_double hk_VecFPU::fpu_large_dot_product(hk_double *base_a, hk_double *base_b, int size, hk_bool adress_aligned) {

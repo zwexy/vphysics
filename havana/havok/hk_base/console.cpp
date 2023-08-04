@@ -48,9 +48,7 @@ void hk_Console::printf( const char *fmt, ...)
 void hk_Console::flush()
 {
 #ifndef WIN32
-#ifndef HK_PS2
 	fflush(stdout);
-#endif
 #endif
 }
 

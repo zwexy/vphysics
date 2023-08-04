@@ -298,18 +298,7 @@ public:
 
 #if defined(IVP_NO_DOUBLE) && !defined(SUN)
     static IVP_DOUBLE fabsd(IVP_DOUBLE f){ return fabsf(f); };
-#ifdef PSXII
-    static IVP_DOUBLE ivp_sqrtf(IVP_DOUBLE x){ 
-		__asm__ __volatile__ (" \
-		.set noreorder \
-			sqrt.s	%0, %0 \
-		.set reorder \
-		" : "+f" (x) :); \
-		return x; \
-	}
-#else	    
     static IVP_DOUBLE ivp_sqrtf(IVP_DOUBLE f){ return sqrtf(f); };
-#endif
     static IVP_DOUBLE sqrtd(IVP_DOUBLE f){ return ivp_sqrtf(f); };
     static IVP_DOUBLE ivp_sinf(IVP_DOUBLE f) { return sinf(f); };
     static IVP_DOUBLE ivp_cosf(IVP_DOUBLE f) { return cosf(f); };

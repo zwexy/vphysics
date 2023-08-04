@@ -40,9 +40,4 @@ IVP_Statistic_Manager::IVP_Statistic_Manager(){
 IVP_Application_Environment::IVP_Application_Environment(){
     P_MEM_CLEAR(this);
     n_cache_object = 256;
-
-#if defined(PSXII) && 0
-    scratchpad_addr = (char *)0x70000000;
-    scratchpad_size = 0x4000;
-#endif
 }

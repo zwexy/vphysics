@@ -1,7 +1,3 @@
-#ifdef HK_PS2
-#	include <hk_math/math_ps2.inl>
-#else	//HK_PS2
-
 #ifdef _WIN32
 inline hk_double hk_Math::fabsd( hk_double r ) { return hk_double(::fabs(r)); }
 
@@ -158,7 +154,4 @@ inline hk_real hk_Math::fast_approx_atan2( hk_real y, hk_real x)
 	}
 	return r;
 }
-
-
-#endif// HK_PS2
 

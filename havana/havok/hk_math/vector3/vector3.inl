@@ -1,7 +1,3 @@
-#ifdef HK_PS2
-#	include <hk_math/vector3/vector3ps2.inl>
-#else	//HK_PS2
-
 /* constructor / assignment */
 
 inline hk_Vector3::hk_Vector3(hk_real a, hk_real b, hk_real c)
@@ -366,6 +362,4 @@ inline Const hkVector3ExpressionMinus operator- (const hk_Vector3& a, const hk_V
 {
 	return hkVector3ExpressionMinus(a,b);
 }
-
-#endif //HK_PS2
 

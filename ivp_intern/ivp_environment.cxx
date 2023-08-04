@@ -7,16 +7,11 @@
 
 #include <ivp_physics.hxx>
 
-#if defined(WIN32) || defined(PSXII)
+#if defined(WIN32)
 //#	include <sys\types.h>
 //#	include <sys\stat.h>
 //#	include <windows.h>
 #	include <time.h>
-#endif
-
-#if defined(PSXII)
-#include <libcdvd.h>
-#define NULL 0
 #endif
 
 #include <ivp_mindist_intern.hxx>
@@ -468,13 +463,11 @@ IVP_Draw_Vector_Debug::~IVP_Draw_Vector_Debug(){
 }
 
 void IVP_Debug_Manager::clear_debug_manager() {
-#if !defined(PSXII)
     if(out_deb_file) {
       if(out_deb_file!=stdout) {
 	fclose(out_deb_file);
       }
     }
-#endif
 }
 
 IVP_Debug_Manager::~IVP_Debug_Manager() {
@@ -836,19 +829,11 @@ void IVP_Time_Event_N::simulate_time_event(IVP_Environment *env) {
 
 
 void IVP_Environment::do_d_events() {
-#ifdef PSXII
-    for(int i=0;i<20;i++) {
-	IVP_Time_Event_D *delay_event=new IVP_Time_Event_D(this->get_current_time());
-	delay_event->number_of_sons=7;
-	this->get_time_manager()->insert_event(delay_event,this->get_current_time());
-    }
-#else
     for(int i=0;i<5;i++) {
 	IVP_Time_Event_D *delay_event=new IVP_Time_Event_D(this->get_current_time());
 	delay_event->number_of_sons=8;
 	this->get_time_manager()->insert_event(delay_event,this->get_current_time());
     }
-#endif    
 }
 
 
@@ -874,44 +859,6 @@ void IVP_Environment::add_draw_vector(const IVP_U_Point *start_p, const IVP_U_Fl
     this->draw_vectors=draw_vector;
 	}
 }
-
-#ifdef PSXII
-	int ivp_bcd2dec(int bcd)
-	{
-		int dec = 0;
-		int sign = (bcd < 0 ? -1 : 1);
-		for (int order = 1; bcd; order*=10)
-		{
-			int i = bcd % 16;
-			IVP_ASSERT(i >= 0 && i <= 9);
-			bcd /= 16;
-			dec += order * i;
-		}
-		return dec*sign;
-	}
-
-	tm ivp_ps2_getTime()
-	{
-		sceCdCLOCK rtc;
-		int success = sceCdReadClock(&rtc);
-		IVP_ASSERT(success);
-		tm mytime;
-		mytime.tm_sec  = ivp_bcd2dec(rtc.second);
-		mytime.tm_min  = ivp_bcd2dec(rtc.minute);
-		mytime.tm_hour = ivp_bcd2dec(rtc.hour);
-		mytime.tm_mday = ivp_bcd2dec(rtc.day);
-		mytime.tm_mon  = ivp_bcd2dec(rtc.month)-1;
-		int year       = ivp_bcd2dec(rtc.year);
-		mytime.tm_year = (year < 70 ? year + 100 : year);
-		mytime.tm_isdst = -1;
-		return mytime;
-	}
-
-	int ivp_ps2_sec_since_1970() {
-		tm mytime = ivp_ps2_getTime();
-		return (int)mktime(&mytime);		
-	}
-#endif
 
 void IVP_Environment::simulate_psi(IVP_Time /*psi_time*/){
 
@@ -988,7 +935,7 @@ void IVP_Environment::simulate_psi(IVP_Time /*psi_time*/){
 #endif
 
 
-#if (defined(WIN32) || defined(PSXII)) && defined(IVP_VERSION_EVAL)  /* blocking only if original ivp_authenticity.hxx is used */
+#if defined(WIN32) && defined(IVP_VERSION_EVAL)  /* blocking only if original ivp_authenticity.hxx is used */
     {
         // IVP_BLOCKING_EVERY_MIN    
 	time_since_last_blocking += get_delta_PSI_time();
@@ -1006,10 +953,6 @@ void IVP_Environment::simulate_psi(IVP_Time /*psi_time*/){
 	    time_t tt = time(NULL);
 		t = (int)tt;
 #endif
-#ifdef PSXII
-		t = ivp_ps2_sec_since_1970();
-#endif
-
 	    if ( t > 983404800 // 1 Mar 01 @@CB
 		+ 60*60*24* (
 		31 + 30 + 31 ) ){ // expiration date 31 May 01 @@CB

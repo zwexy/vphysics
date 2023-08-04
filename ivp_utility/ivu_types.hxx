@@ -13,15 +13,10 @@
 //#define IVP_PIII			/* set for P3 specific code */
 //#define IVP_WILLAMETTE	/* set for Willamette specific code */
 //#define IVP_WMT_ALIGN		/* set to compile with MS but Willamette compatible */
-//#define IVP_PSXII			/* playstation II */
 #endif
 //#define IVP_NO_DOUBLE    /* set if processor has no double floating point unit, or lib should use float only */
 #define IVP_VECTOR_UNIT_FLOAT  /* set if extra data is inserted to support vector units */
 #define IVP_VECTOR_UNIT_DOUBLE /* set if extra data should be insersted to utilize double vector units */
-
-#if defined(PSXII)
-#define IVP_USE_PS2_VU0
-#endif
 
 #ifdef IVP_WILLAMETTE
 #define IVP_IF_WILLAMETTE_OPT(cond) if(cond)
@@ -34,15 +29,15 @@
 #endif
 
 // recheck the settings for various computers
-#if !defined(IVP_NO_DOUBLE) && (defined(PSXII) || defined(GEKKO) || defined(_XBOX))
+#if !defined(IVP_NO_DOUBLE) && (defined(GEKKO) || defined(_XBOX))
 #define IVP_NO_DOUBLE
 #endif
 
-#if !defined(IVP_VECTOR_UNIT_DOUBLE) && defined(PSXII)
+#if !defined(IVP_VECTOR_UNIT_DOUBLE)
 #	define IVP_VECTOR_UNIT_FLOAT
 #	define IVP_VECTOR_UNIT_DOUBLE
 #endif
-					     
+
 // typedefs for our special types
 
 #if defined(NDEBUG) + defined(DEBUG) != 1
@@ -51,41 +46,12 @@
 
 #define CORE *(int *)0 = 0  /* send fatal signal */
 
-#if defined (PSXII)
-#	if defined (__MWERKS__)
-inline void BREAKPOINT()
-{
-	__asm__ __volatile__(" \
-		breakc 0x0 \
-		nop \
-	");
-}
-#	else // __MWERKS__
-inline void BREAKPOINT()
-{
-	__asm__ __volatile__(" \
-		break 0x0 \
-		nop \
-	");
-}
-#	endif // __MWERKS__
-#endif // PSXII
-
 #ifdef	NDEBUG
 #	define IVP_ASSERT(cond)	
 #	define IVP_USE(a) 
 #	define IVP_IF(flag)	if (0==1)
 #else
-#	if defined (PSXII)
-#		define IVP_ASSERT(cond) \
-		{ \
-			if(!(cond)) \
-			{ \
-				::fprintf(stderr, "\nASSERTION FAILURE: %s\nFILE: %s\nLINE: %d\n\n", cond, __FILE__, __LINE__); \
-				BREAKPOINT(); \
-			} \
-		}
-#	elif defined(GEKKO)
+#	if defined(GEKKO)
 #		define IVP_ASSERT(cond) \
 		{ \
 			if(!(cond)) \
@@ -124,7 +90,7 @@ inline void BREAKPOINT()
 			} \
 		}
 //#		define IVP_ASSERT(cond)	if (!(cond)) CORE
-#	endif // PSXII, Mac, etc.  debug assert
+#	endif // Mac, etc.  debug assert
 #	define IVP_USE(a) a=a
 #	define IVP_IF(flag)	if (flag)
 #endif
@@ -198,7 +164,7 @@ typedef unsigned int		uintp;
 typedef const char *IVP_ERROR_STRING;
 #define IVP_NO_ERROR 0
 
-#if defined(PSXII) || defined(LINUX) || defined(GEKKO)
+#if defined(LINUX) || defined(GEKKO)
 //#   define IVP_ALIGN_16  __attribute__ ((aligned(16)))
 #endif
 
@@ -303,10 +269,6 @@ extern void ivp_memory_check(void *a);
 void ivp_srand(int seed);
 IVP_FLOAT ivp_rand();		// returns [0 .. 1]
 
-#if defined(PSXII)
-#	define IVP_NO_ALLOCA
-#endif
-
 #if defined(WIN32)
 #   if defined(IVP_PIII) || defined(IVP_WILLAMETTE)
 #   	if defined(IVP_PIII)
@@ -318,12 +280,6 @@ IVP_FLOAT ivp_rand();		// returns [0 .. 1]
 #	include <xmmintrin.h>
 #	define IVP_PREFETCH( pntr, offset) _mm_prefetch( int(offset) + (char *)pntr, _MM_HINT_T1);
 #   endif
-
-
-#elif defined(PSXII) && 0
-#	define IVP_PREFETCH_CLINE_SIZE 0x40
-#	define IVP_IF_PREFETCH_ENABLED(x) if(x)
-#	define	IVP_PREFETCH(__addr,__offs)  ({asm volatile("pref 0,%1(%0)" : : "r"(__addr),"i"(__offs));})
 #endif
 
 

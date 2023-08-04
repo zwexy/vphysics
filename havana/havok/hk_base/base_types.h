@@ -131,13 +131,11 @@ typedef hk_uint32	hk_id;
 //#endif
 
 #if !defined(HK_ALIGNED_VARIABLE)
-#	if defined(HK_PS2)
-#		define HK_ALIGNED_VARIABLE(NAME,ALIGNMENT) NAME __attribute__((aligned(ALIGNMENT)))
-#	elif defined(HK_PIII_SSE)
+#	if defined(HK_PIII_SSE)
 #		define HK_ALIGNED_VARIABLE(NAME,ALIGNMENT) __declspec(align(ALIGNMENT))
 #	else //no special alignment
 #		define HK_ALIGNED_VARIABLE(NAME,ALIGNMENT) NAME
-#	endif 
+#	endif
 #endif //HK_ALIGNED_VARIABLE
 
 #endif //HK_BASE_BASE_TYPES_H

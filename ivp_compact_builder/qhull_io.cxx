@@ -519,7 +519,7 @@ setT *qh_detvridge3 (vertexT *atvertex, vertexT *vertex) {
     facet= neighbor;
   }
 
-#if !defined(PSXII) && !defined(GEKKO)
+#if !defined(GEKKO)
   if (qh CHECKfrequently) {
     FOREACHneighbor_(vertex) {
       if (!neighbor->seen2) {

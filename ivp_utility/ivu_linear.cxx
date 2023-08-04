@@ -4,7 +4,6 @@
 #	pragma implementation "ivu_linear.hxx"
 #	pragma implementation "ivu_linear_software.hxx"
 #	pragma implementation "ivu_linear_double.hxx"
-#	pragma implementation "ivu_linear_ps2.hxx"
 #	pragma implementation "ivu_linear_macros.hxx"
 #	pragma implementation "ivu_matrix_macros.hxx"
 #endif
@@ -13,7 +12,7 @@
 #include <ivp_physics.hxx>
 #include <ivu_matrix_macros.hxx>
 
-#if defined(PSXII) || defined(GEKKO)
+#if defined(GEKKO)
 #	include <string.h>
 #elif defined(LINUX) || defined(WIN32) || defined(SGI) || (defined(__MWERKS__) && defined(__POWERPC__)) || defined(GEKKO)
 #	include <memory.h>
