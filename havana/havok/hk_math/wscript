@@ -33,7 +33,6 @@ def build(bld):
 		'eulerangles.cpp',
 		'math.cpp',
 		'matrix3.cpp',
-		'odesolve.cpp',
 		'plane.cpp',
 		'rotation.cpp',
 		'spatial_matrix.cpp',
