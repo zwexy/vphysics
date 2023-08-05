@@ -8,7 +8,6 @@
 #include <hk_base/array/pre_allocated_array.h>
 #include <hk_base/display.h>
 #include <hk_base/console.h>
-#include <hk_base/string/string.h>
 
 #endif /*HK_BASE_BASE_H*/
 

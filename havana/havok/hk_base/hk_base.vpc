@@ -142,12 +142,6 @@ $Project "hk_base"
 		$File	"stopwatch\stopwatch_qpt.inl"
 	}
 
-	$Folder	"string"
-	{
-		$File	"string\string.cpp"
-		$File	"string\string.h"
-	}
-
 	$File	"stdafx.h"
 	$File	"base.h"
 	$File	"base_types.cpp"

@@ -34,7 +34,7 @@ void hk_Transform::set_identity_transform()
 
 void hk_Transform::get_4x4_column_major(hk_real* p) const
 {
-	hk_String::memcpy(p, &get_column(0), 16*sizeof(hk_real));
+	memcpy(p, &get_column(0), 16*sizeof(hk_real));
 
 	p[3]  = 0;
 	p[7]  = 0;
