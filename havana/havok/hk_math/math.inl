@@ -79,8 +79,7 @@ inline hk_real hk_Math::clamp( hk_real r, hk_real mn, hk_real mx)
 
 inline int hk_Math::int_log2( hk_real ) { return 0; }
 
-
-inline hk_real hk_Math::_rand01()
+inline hk_real hk_Math::rand01()
 {
 	// BSD rand function
 	const unsigned a = 1103515245;
@@ -154,4 +153,3 @@ inline hk_real hk_Math::fast_approx_atan2( hk_real y, hk_real x)
 	}
 	return r;
 }
-

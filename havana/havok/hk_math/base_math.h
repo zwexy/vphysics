@@ -42,8 +42,7 @@ class hk_Math
 		static inline hk_real exp( hk_real );
 
 		static void srand01( unsigned seedVal );
-		static inline hk_real _rand01();
-		static	      hk_real rand01();
+		static inline hk_real rand01();
 		static inline int int_log2( hk_real ); // integer part of log2
 		static unsigned int hk_random_seed;
 };
