@@ -40,7 +40,6 @@ IVP_DOUBLE p_atof(const char *s);
 
 #ifdef WIN32
 void replace_slash(const char *in,char *out);
-long p_get_time(); // returns seconds since 1970
 #endif
 
 

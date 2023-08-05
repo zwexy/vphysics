@@ -432,13 +432,3 @@ int p_atoi(const char *s){
     return atoi(s);
 }
 
-
-#ifdef WIN32
-#	include <time.h>
-
-long p_get_time(){ // returns seconds since 1970
-	time_t t;
-	time_t now = time(&t);
-	return t;
-}
-#endif
