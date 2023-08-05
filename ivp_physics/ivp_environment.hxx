@@ -202,13 +202,8 @@ class IVP_Environment {		// the environment
     IVP_U_Vector<IVP_Listener_PSI> 		psi_listeners;
     IVP_U_Vector<IVP_Core> 		        core_revive_list;
     IVP_U_Vector<IVP_Listener_Constraint> 	constraint_listeners;
-    
-    
-    char *auth_costumer_name;
-    unsigned int auth_costumer_code;
-    int pw_count;
-    
-    IVP_Environment(IVP_Environment_Manager *manager,IVP_Application_Environment *appl_env,const char *costumer_name,unsigned int auth_code);
+
+    IVP_Environment(IVP_Environment_Manager *manager,IVP_Application_Environment *appl_env);
     IVP_Environment_Manager *environment_manager;
     void simulate_psi(IVP_Time psi_time);
 
@@ -491,8 +486,8 @@ public:
 
 
     IVP_U_Vector<IVP_Environment> environments;
-    IVP_Environment *create_environment(IVP_Application_Environment *appl_env,const char *costumer_name,unsigned int auth_code);
-    static IVP_Environment_Manager* IVP_CDECL get_environment_manager();			
+    IVP_Environment *create_environment(IVP_Application_Environment *appl_env);
+    static IVP_Environment_Manager* IVP_CDECL get_environment_manager();
 };
 
 #endif

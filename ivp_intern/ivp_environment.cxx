@@ -65,8 +65,7 @@ void IVP_Freeze_Manager::init_freeze_manager(){
     freeze_check_dtime = 0.3f;
 }
 
-IVP_Environment::IVP_Environment(IVP_Environment_Manager *manager,IVP_Application_Environment *appl_env,
-				 const char *company_name,unsigned int auth_code)
+IVP_Environment::IVP_Environment(IVP_Environment_Manager *manager,IVP_Application_Environment *appl_env)
 {
   IVP_ASSERT( sizeof(IVP_Compact_Edge) == 4);
   IVP_ASSERT( sizeof(IVP_Compact_Triangle) == 16);
@@ -168,10 +167,6 @@ IVP_Environment::IVP_Environment(IVP_Environment_Manager *manager,IVP_Applicatio
     IVP_Mindist_Minimize_Solver::init_mms_function_table();
     IVP_Mindist_Event_Solver::init_mim_function_table();
 
-    this->auth_costumer_name = p_strdup(company_name);
-    this->auth_costumer_code = auth_code;
-    this->pw_count = 10;
-   
     { // create a static ball
 	IVP_Template_Ball b;
 	b.radius = 1.0f;
@@ -256,37 +251,10 @@ IVP_Environment::~IVP_Environment(){
     P_DELETE(short_term_mem);
     P_DELETE(sim_unit_mem);
     P_DELETE(cache_object_manager);
-    P_FREE(auth_costumer_name);
 
     environment_manager->environments.remove(this);
     this->delete_draw_vector_debug();
 } 
-
-//IVP_BOOL IVP_Environment::must_perform_movement_check() {
-//    next_movement_check--;
-//    if(next_movement_check==0) {
-//#ifdef IVP_ENCRYPT_EXISTS
-//        pw_count--;
-//        if(pw_count==0) {
-//	    IVP_UINT32 crypt_val = IVP_Encrypt::encrypt_strings(auth_costumer_name,IVP_IPION_AUTH_CHECK);
-//	    if(auth_costumer_code != crypt_val) {
-//	        mindist_manager=NULL;
-//	    }
-//	    }
-//
-//	    time_t t, e;
-//		t = time(NULL);
-//		e = 3181552896; // october 26th 2000, on a Mac
-//		printf(" Now: %.1f   Target: %.1f\n\n", (float)t, (float)e);
-//		if (t > e)
-//	        mindist_manager=NULL;
-//#endif	
-//	next_movement_check=IVP_MOVEMENT_CHECK_COUNT*3/2 + (short)(ivp_rand()* (IVP_MOVEMENT_CHECK_COUNT/2));
-//	return IVP_TRUE;
-//    } else {
-//	return IVP_FALSE;
-//    }
-//}
 
 void IVP_Environment::fire_object_is_removed_from_collision_detection(IVP_Real_Object *obj){
     for (int k = collision_delegator_roots.len()-1;k>=0;k--){
@@ -386,15 +354,9 @@ IVP_Cluster *IVP_Environment::get_root_cluster()
 }
 
 
-IVP_Environment *IVP_Environment_Manager::create_environment(IVP_Application_Environment *appl_env,
-							     const char *costumer_name,unsigned int auth_code) {
-#ifdef IVP_ENCRYPT_EXISTS
-    IVP_UINT32 crypt_val = IVP_Encrypt::encrypt_strings(costumer_name,IVP_IPION_AUTH_CHECK);
-    if(auth_code != crypt_val) {
-	return NULL;
-    }
-#endif
-    IVP_Environment *new_en=new IVP_Environment(this,appl_env,costumer_name,auth_code);
+IVP_Environment *IVP_Environment_Manager::create_environment(IVP_Application_Environment *appl_env)
+{
+    IVP_Environment *new_en=new IVP_Environment(this,appl_env);
     return new_en;
 }
 
