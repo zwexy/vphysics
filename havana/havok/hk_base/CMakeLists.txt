@@ -22,7 +22,6 @@ if(MSVC)
 endif()
 
 target_sources(${OUTLIBNAME} PRIVATE array/array.cpp)
-target_sources(${OUTLIBNAME} PRIVATE hash/hash.cpp)
 target_sources(${OUTLIBNAME} PRIVATE memory/memory.cpp)
 target_sources(${OUTLIBNAME} PRIVATE memory/memory_util.cpp)
 target_sources(${OUTLIBNAME} PRIVATE stopwatch/stopwatch.cpp)
