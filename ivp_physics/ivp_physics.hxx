@@ -14,8 +14,6 @@
 #define IVP_MAX_DELTA_PSI_TIME (1.0f/10.0f)
 #define IVP_MIN_DELTA_PSI_TIME (1.0f/200.0f)
 
-#define IVP_BLOCKING_EVERY_MIN
-
 #include <stdio.h>
 
 #include <math.h>

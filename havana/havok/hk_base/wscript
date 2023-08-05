@@ -26,7 +26,6 @@ def build(bld):
 		'hash/hash.cpp',
 		'stopwatch/stopwatch.cpp',
 		'string/string.cpp',
-		'id_server/id_server.cpp',
 		'base_types.cpp',
 		'console.cpp'
 	]
