@@ -128,20 +128,6 @@ $Project "hk_base"
 		$File	"array\pre_allocated_array.h"
 	}
 
-	$Folder	"hash"
-	{
-		$File	"hash\hash.cpp"
-		$File	"hash\hash.h"
-		$File	"hash\hash.inl"
-	}
-
-	$Folder	"stopwatch"
-	{
-		$File	"stopwatch\stopwatch.cpp"
-		$File	"stopwatch\stopwatch.h"
-		$File	"stopwatch\stopwatch_qpt.inl"
-	}
-
 	$File	"stdafx.h"
 	$File	"base.h"
 	$File	"base_types.cpp"

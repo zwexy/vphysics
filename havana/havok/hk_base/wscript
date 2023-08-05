@@ -23,8 +23,6 @@ def build(bld):
 		'memory/memory.cpp',
 		'memory/memory_util.cpp',
 		'array/array.cpp',
-		'hash/hash.cpp',
-		'stopwatch/stopwatch.cpp',
 		'base_types.cpp',
 		'console.cpp'
 	]

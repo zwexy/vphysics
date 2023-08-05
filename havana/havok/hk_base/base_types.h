@@ -121,10 +121,6 @@ typedef hk_uint32	hk_id;
 #endif
 #define HK_TEMPLATE_INLINE inline
 
-//#if defined(__i386__) || defined(WIN32)
-//#	define HK_HAVE_QUERY_PERFORMANCE_TIMER
-//#endif
-
 #if !defined(HK_ALIGNED_VARIABLE)
 #	if defined(HK_PIII_SSE)
 #		define HK_ALIGNED_VARIABLE(NAME,ALIGNMENT) __declspec(align(ALIGNMENT))
