@@ -1160,11 +1160,11 @@ IVP_ERROR_STRING IVP_U_Matrix::read_from_file(FILE *fp)
     char *cmd;
     while ((cmd = p_read_first_token(fp))){
 
-	if( strcasecmp("MATRIX_START",cmd)==0 ){
+	if( p_strcmp("MATRIX_START",cmd)==0 ){
 	    continue;	// skip
 	}
 
-	if( strcasecmp("MATRIX_ROT",cmd)==0 ){
+	if( p_strcmp("MATRIX_ROT",cmd)==0 ){
 	    int i;
 	    for (int r=0;r<3;r++){
 		for(i=0; i<3; i++){
@@ -1174,14 +1174,14 @@ IVP_ERROR_STRING IVP_U_Matrix::read_from_file(FILE *fp)
 	    continue;
 	}
 
-	if( strcasecmp("MATRIX_POS",cmd)==0 ){
+	if( p_strcmp("MATRIX_POS",cmd)==0 ){
 	    this->vv.k[0] = get_float();
 	    this->vv.k[1] = get_float();
 	    this->vv.k[2] = get_float();
 	    continue;
 	}
 
-	if( strcasecmp("MATRIX_END",cmd)==0 ){
+	if( p_strcmp("MATRIX_END",cmd)==0 ){
 	    break;
 	}
 	printf("Load IVP_U_Matrix: Unknown Command\n'%s'!\n",

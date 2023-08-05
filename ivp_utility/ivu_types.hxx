@@ -219,12 +219,6 @@ enum IVP_RETURN_TYPE {
 	void  IVP_CDECL ivp_byte_swap4(uint& fourbytes);
 	void  IVP_CDECL ivp_byte_swap2(ushort& twobytes);
 
-#ifdef GEKKO
-
-	int	strcasecmp(const char *,const char *);
-#endif
-
-
 	char *p_strdup(const char *s);
 
 extern void ivp_memory_check(void *a);
