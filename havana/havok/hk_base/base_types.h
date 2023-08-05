@@ -5,6 +5,8 @@
 #include <signal.h>
 #endif
 
+#include <stddef.h> // size_t
+
 // TODO(crack): filthy hack to get around keyword bans in macros
 #ifndef _ALLOW_KEYWORD_MACROS
 # define _ALLOW_KEYWORD_MACROS
@@ -65,13 +67,6 @@ typedef signed int			hk_int32;
 typedef unsigned char		hk_uchar;
 typedef unsigned short		hk_uint16;
 typedef unsigned int		hk_uint32;
-
-#if 1 // defined(__POWERPC__) && defined(__MWERKS__)
-#include <stddef.h>
-typedef size_t 			hk_size_t;  // CK: unsigned long int ..
-#else
-typedef unsigned int 	hk_size_t;
-#endif
 
 #ifdef _LINUX
 #define HK_BREAK raise(SIGINT)
