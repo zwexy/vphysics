@@ -10,9 +10,6 @@
 class hk_Dense_Matrix
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Dense_Matrix)
-
 		inline hk_Dense_Matrix(hk_real *mem, int r, int c, int lda);
 
 		inline hk_real& operator() (int r, int c) { return m_elt[r+c*m_lda]; }
@@ -66,9 +63,6 @@ class hk_Fixed_Dense_Matrix : public hk_Dense_Matrix
 		hk_real m_elt_buffer[ N * HK_NEXT_MULTIPLE_OF(4,N) ];
 
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Fixed_Dense_Matrix<N> )
-
 		inline hk_Fixed_Dense_Matrix()
 			: hk_Dense_Matrix(m_elt_buffer, N, N, (N+3)&(~3)) { }
 
@@ -90,9 +84,6 @@ class hk_Fixed_Dense_Matrix : public hk_Dense_Matrix
 class hk_Dense_Matrix_6x6 : public hk_Dense_Matrix
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Dense_Matrix_6x6 )
-
 		inline hk_Dense_Matrix_6x6()
 			: hk_Dense_Matrix( & m_elt_buffer[0], 6, 6, 8 )
 		{
@@ -106,9 +97,6 @@ class hk_Dense_Matrix_6x6 : public hk_Dense_Matrix
 class hk_Dense_Matrix_3x3 : public hk_Dense_Matrix
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Dense_Matrix_3x3 )
-
 		inline	hk_Dense_Matrix_3x3 ()
 			: hk_Dense_Matrix( m_elt_buffer.get_elem_address(0,0), 3, 3, 4 )
 		{
@@ -127,9 +115,6 @@ class hk_Dense_Matrix_3x3 : public hk_Dense_Matrix
 class hk_Dense_Matrix_1x1 : public hk_Dense_Matrix
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Dense_Matrix_1x1 )
-
 		inline	hk_Dense_Matrix_1x1 ()
 			: hk_Dense_Matrix( & m_elt_buffer[0], 1, 1, 4 )
 		{

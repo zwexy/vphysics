@@ -6,9 +6,6 @@
 class hk_Ray
 {
     public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Ray)
-
 		inline hk_Ray() = default;
 		inline hk_Ray(const hk_Vector3& orig, const hk_Vector3 dir);
 

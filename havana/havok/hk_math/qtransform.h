@@ -5,9 +5,6 @@
 class hk_QTransform
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_QTransform)
-
 		inline hk_QTransform() = default;
 			//:
 

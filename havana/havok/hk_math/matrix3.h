@@ -9,9 +9,6 @@
 class hk_Matrix3
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Matrix3)
-
 		inline hk_Matrix3() = default;
 			//: Empty default constructor
 		inline ~hk_Matrix3() {}

@@ -7,8 +7,6 @@ class hk_Mass_Relative_Vector3
 {
 	public:
 
-	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Mass_Relative_Vector3)
-
 	hk_Vector3 m_vector;
 	inline hk_Mass_Relative_Vector3() = default;
 	inline hk_Mass_Relative_Vector3( hk_Rigid_Body *rb, const hk_Vector3 &position_ws )

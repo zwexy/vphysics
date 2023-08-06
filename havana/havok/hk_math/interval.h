@@ -5,9 +5,6 @@ template <class T>
 class hk_Interval
 {
     public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Interval<T> )
-
 		inline hk_Interval() = default;
 
 		inline hk_Interval(const T& a, const T& b)

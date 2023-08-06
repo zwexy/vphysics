@@ -5,8 +5,6 @@ class hk_Dense_Vector
 {
 	public:
 
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Dense_Vector)
-
 		inline hk_real& operator() (int i) { HK_ASSERT(i<m_size); return m_elt[i]; }
 		inline const hk_real& operator() (int i) const { HK_ASSERT(i<m_size); return m_elt[i]; }
 
@@ -52,9 +50,6 @@ template <int N>
 class hk_Fixed_Dense_Vector : public hk_Dense_Vector
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Fixed_Dense_Vector<N> )
-
 		hk_Fixed_Dense_Vector()
 			: hk_Dense_Vector(m_elt_buffer, N, HK_NEXT_MULTIPLE_OF(4,N) ) { }
 

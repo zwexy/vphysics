@@ -35,8 +35,6 @@
 #	define HK_CHECK(a) 
 #endif
 
-#define HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(a,b)
-
 #ifdef _LINUX
 #define HK_BREAKPOINT() raise(SIGINT)
 #else

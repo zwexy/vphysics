@@ -6,9 +6,6 @@
 class hk_Constraint_Limit_BP
 {
 	public:
-
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CONSTRAINT, hk_Constraint_Limit_BP)
-
 		hk_Constraint_Limit_BP()
 		{
 			m_limit_is_enabled = HK_FALSE;
