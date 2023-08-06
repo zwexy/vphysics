@@ -41,7 +41,6 @@ $Configuration	"Debug"
 
 	$Compiler [$WIN32]
 	{
-		$PrecompiledHeaderFile				"..\obj\x86_debug\ivp_compactbuilder\ivp_compactbuilder_lib.pch"
 		$ASMListLocation					"..\obj\x86_debug\ivp_compactbuilder\"
 		$ObjectFileName						"..\obj\x86_debug\ivp_compactbuilder\"
 		$ProgramDatabaseFileName			"..\obj\x86_debug\ivp_compactbuilder\"
@@ -49,7 +48,6 @@ $Configuration	"Debug"
 
 	$Compiler [$WIN64]
 	{
-		$PrecompiledHeaderFile				"..\obj\x64_debug\ivp_compactbuilder\ivp_compactbuilder_lib.pch"
 		$ASMListLocation					"..\obj\x64_debug\ivp_compactbuilder\"
 		$ObjectFileName						"..\obj\x64_debug\ivp_compactbuilder\"
 		$ProgramDatabaseFileName			"..\obj\x64_debug\ivp_compactbuilder\"
@@ -84,14 +82,13 @@ $Configuration	"Release"
 	$Compiler [$WINDOWS]
 	{
 		$InlineFunctionExpansion			"Only __inline (/Ob1)"
-		$Create/UsePrecompiledHeader		"Use Precompiled Header (/Yu)"
+		$Create/UsePrecompiledHeader		"Not Using Precompiled Headers"
 		$Create/UsePCHThroughFile			"ivp_physics.hxx"
 		$WarningLevel						"Level 3 (/W3)"
 	}
 
 	$Compiler [$WIN32]
 	{
-		$PrecompiledHeaderFile				"..\obj\x86_release\ivp_compactbuilder\ivp_compactbuilder_lib.pch"
 		$ASMListLocation					"..\obj\x86_release\ivp_compactbuilder\"
 		$ObjectFileName						"..\obj\x86_release\ivp_compactbuilder\"
 		$ProgramDatabaseFileName			"..\obj\x86_release\ivp_compactbuilder\"
@@ -99,7 +96,6 @@ $Configuration	"Release"
 
 	$Compiler [$WIN64]
 	{
-		$PrecompiledHeaderFile				"..\obj\x64_release\ivp_compactbuilder\ivp_compactbuilder_lib.pch"
 		$ASMListLocation					"..\obj\x64_release\ivp_compactbuilder\"
 		$ObjectFileName						"..\obj\x64_release\ivp_compactbuilder\"
 		$ProgramDatabaseFileName			"..\obj\x64_release\ivp_compactbuilder\"

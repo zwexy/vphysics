@@ -45,7 +45,6 @@ $Configuration	"Debug"
 
 	$Compiler [$WIN32]
 	{
-		$PrecompiledHeaderFile				"..\obj\x86_debug\ivp_physics\ivp_physics_lib.pch"
 		$ASMListLocation					"..\obj\x86_debug\ivp_physics\"
 		$ObjectFileName						"..\obj\x86_debug\ivp_physics\"
 		$ProgramDatabaseFileName			"..\obj\x86_debug\ivp_physics\"
@@ -53,7 +52,6 @@ $Configuration	"Debug"
 
 	$Compiler [$WIN64]
 	{
-		$PrecompiledHeaderFile				"..\obj\x64_debug\ivp_physics\ivp_physics_lib.pch"
 		$ASMListLocation					"..\obj\x64_debug\ivp_physics\"
 		$ObjectFileName						"..\obj\x64_debug\ivp_physics\"
 		$ProgramDatabaseFileName			"..\obj\x64_debug\ivp_physics\"
@@ -88,7 +86,7 @@ $Configuration	"Release"
 	{
 		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\ivp\ivp_intern;$SRCDIR\ivp\ivp_collision;$SRCDIR\ivp\ivp_physics;$SRCDIR\ivp\ivp_surface_manager;$SRCDIR\ivp\ivp_utility;$SRCDIR\ivp\ivp_controller;$SRCDIR\ivp\ivp_compact_builder;$SRCDIR\ivp\havana\havok;$SRCDIR\ivp\havana"
 		$PreprocessorDefinitions			"$BASE;VPHYSICS_EXPORTS;IVP_VERSION_SDK;HAVANA_CONSTRAINTS;HAVOK_MOPP"
-		$Create/UsePrecompiledHeader		"Use Precompiled Header (/Yu)"
+		$Create/UsePrecompiledHeader		"Not Using Precompiled Headers"
 		$Create/UsePCHThroughFile			"ivp_physics.hxx"
 	}
 
@@ -100,7 +98,6 @@ $Configuration	"Release"
 
 	$Compiler [$WIN32]
 	{
-		$PrecompiledHeaderFile				"..\obj\x86_release\ivp_physics\ivp_physics_lib.pch"
 		$ASMListLocation					"..\obj\x86_release\ivp_physics\"
 		$ObjectFileName						"..\obj\x86_release\ivp_physics\"
 		$ProgramDatabaseFileName			"..\obj\x86_release\ivp_physics\"
@@ -108,7 +105,6 @@ $Configuration	"Release"
 
 	$Compiler [$WIN64]
 	{
-		$PrecompiledHeaderFile				"..\obj\x64_release\ivp_physics\ivp_physics_lib.pch"
 		$ASMListLocation					"..\obj\x64_release\ivp_physics\"
 		$ObjectFileName						"..\obj\x64_release\ivp_physics\"
 		$ProgramDatabaseFileName			"..\obj\x64_release\ivp_physics\"
@@ -233,24 +229,6 @@ $Project "ivp_physics"
 		$File	"$SRCDIR\ivp\ivp_intern\ivp_object.cxx"
 		$File	"$SRCDIR\ivp\ivp_intern\ivp_object_attach.cxx"
 		$File	"$SRCDIR\ivp\ivp_intern\ivp_physic.cxx"
-		{
-			$Configuration	"Debug"
-			{
-				$Compiler
-				{
-					$Create/UsePrecompiledHeader		"Create Precompiled Header (/Yc)"
-					$Create/UsePCHThroughFile			"ivp_physics.hxx"
-				}
-			}
-			$Configuration	"Release"
-			{
-				$Compiler
-				{
-					$Create/UsePrecompiledHeader		"Create Precompiled Header (/Yc)"
-				}
-			}
-		}
-
 		$File	"$SRCDIR\ivp\ivp_intern\ivp_physic_private.cxx"
 		$File	"$SRCDIR\ivp\ivp_intern\ivp_physic_private.hxx"
 		$File	"$SRCDIR\ivp\ivp_intern\ivp_polygon.cxx"
