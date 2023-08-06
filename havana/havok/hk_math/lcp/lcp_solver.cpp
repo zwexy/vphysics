@@ -122,7 +122,7 @@ void hk_LCP_Solver::mult_x_with_full_A_minus_b() {
 //quite costly, because we have to multiply with the full matrix
 // we check wether the active variables match with the right side full_b
 //    and we check wether the inactives are greater equal the right side full_b
-hk_bool hk_LCP_Solver::numerical_stability_ok() {
+bool hk_LCP_Solver::numerical_stability_ok() {
     mult_x_with_full_A_minus_b();
     int k;
     hk_real val;

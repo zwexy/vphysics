@@ -43,16 +43,12 @@
 #define HK_BREAKPOINT() *(int*)0=0
 #endif
 
-
 class hkBaseObject
 {
 public:
 	int m_memsize;
 	virtual ~hkBaseObject(){;}
 };
-
-
-
 
 // simple commonly used types
 typedef float hk_real;
@@ -74,16 +70,11 @@ typedef unsigned int		hk_uint32;
 #define HK_BREAK (*((int *)0)) = 0
 #endif
 
-#define HK_PUBLIC public
-
 #if defined(__GNUC__)
-#	define HK_HAVE_PRAGMA_INTERFACE
-#	define HK_HAVE_GNU_INLINE_ASSEMBLY
 	typedef signed long long	hk_int64;
 	typedef unsigned long long	hk_uint64;
 #elif defined(WIN32)
 #	define HK_HAVE_FORCE_INLINE
-#	define HK_HAVE_MSVC_INLINE_ASSEMBLY
 	typedef signed __int64		hk_int64;
 	typedef unsigned __int64	hk_uint64;
 #endif
@@ -104,7 +95,6 @@ enum hk_result
 	HK_FAULT
 };
 
-typedef bool hk_bool;
 #define HK_FALSE false
 #define HK_TRUE  true
 

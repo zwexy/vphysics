@@ -184,9 +184,9 @@ T& hk_Array<T>::get_element( iterator i )
 }
 
 template <class T>
-hk_bool hk_Array<T>::is_valid( iterator i)
+bool hk_Array<T>::is_valid( iterator i)
 {
-	return hk_bool(i>=0);
+	return bool(i>=0);
 }
 
 template <class T>

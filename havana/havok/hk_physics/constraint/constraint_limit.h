@@ -41,8 +41,8 @@ class hk_Constraint_Limit_BP
 
 	public:
 
-		hk_bool m_limit_is_enabled;
-		hk_bool	m_friction_is_enabled;
+		bool m_limit_is_enabled;
+		bool m_friction_is_enabled;
 
 		hk_real m_limit_min;
 		hk_real m_limit_max;

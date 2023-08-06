@@ -28,7 +28,7 @@ class hk_Stiff_Spring_Work
 
 		hk_VM_Query_Builder< hk_VMQ_Storage<1> > query_engine;
 		hk_real current_dist;
-		hk_bool skip_solve;
+		bool skip_solve;
 };
 
 void hk_Stiff_Spring_Constraint::init_constraint( const void* vbp )
