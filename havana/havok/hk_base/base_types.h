@@ -1,11 +1,11 @@
 #ifndef HK_BASE_BASE_TYPES_H
 #define HK_BASE_BASE_TYPES_H
 
-#ifdef _LINUX
-#include <signal.h>
-#endif
-
 #include <stddef.h> // size_t
+
+#if defined(HK_PIII_SSE)
+#	include <xmmintrin.h>
+#endif
 
 // TODO(crack): filthy hack to get around keyword bans in macros
 #ifndef _ALLOW_KEYWORD_MACROS
@@ -35,19 +35,6 @@
 #	define HK_CHECK(a) 
 #endif
 
-#ifdef _LINUX
-#define HK_BREAKPOINT() raise(SIGINT)
-#else
-#define HK_BREAKPOINT() *(int*)0=0
-#endif
-
-class hkBaseObject
-{
-public:
-	int m_memsize;
-	virtual ~hkBaseObject(){;}
-};
-
 // simple commonly used types
 typedef float hk_real;
 typedef double hk_double;
@@ -61,6 +48,8 @@ typedef signed int			hk_int32;
 typedef unsigned char		hk_uchar;
 typedef unsigned short		hk_uint16;
 typedef unsigned int		hk_uint32;
+
+typedef float				hk_incrlu_real;
 
 #ifdef _LINUX
 #define HK_BREAK raise(SIGINT)
@@ -76,7 +65,6 @@ typedef unsigned int		hk_uint32;
 	typedef signed __int64		hk_int64;
 	typedef unsigned __int64	hk_uint64;
 #endif
-
 
 #define HK_NULL 0
 
@@ -103,11 +91,6 @@ typedef hk_int32	hk_sorted_set_index;
 typedef hk_int32	hk_array_index;
 typedef hk_uint16	hk_array_store_index;
 typedef hk_uint32	hk_id;
-
-#ifdef HK_HAVE_FORCE_INLINE
-#	define inline __forceinline
-#endif
-#define HK_TEMPLATE_INLINE inline
 
 #if !defined(HK_ALIGNED_VARIABLE)
 #	if defined(HK_PIII_SSE)
