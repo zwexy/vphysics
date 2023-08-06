@@ -363,11 +363,11 @@ void hk_Dense_Matrix_Util::print(const hk_Dense_Matrix &m)
 {
 	for (int row = 0; row < m.get_num_rows(); row ++)
 	{
-		hkprintf("%2i: ", row);
+		ivp_message("%2i: ", row);
 		for (int col = 0; col < m.get_num_cols(); col ++)
 		{
-			hkprintf("%3.3f, ", m( row,col));
+			ivp_message("%3.3f, ", m( row,col));
 		}
-		hkprintf("\n");
+		ivp_message("\n");
 	}
 }

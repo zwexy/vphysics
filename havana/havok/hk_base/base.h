@@ -7,7 +7,8 @@
 #include <hk_base/array/array.h>
 #include <hk_base/array/pre_allocated_array.h>
 #include <hk_base/display.h>
-#include <hk_base/console.h>
+
+extern void ivp_message(const char *templat, ...);
 
 #endif /*HK_BASE_BASE_H*/
 

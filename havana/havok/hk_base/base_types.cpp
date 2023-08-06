@@ -5,8 +5,7 @@ void hk_assert(bool test, const char* cond, int line, const char* file)
 {
 	if (test==false)
 	{
-		hk_Console::get_instance()->printf("%s:%i: assertion failed : '%s'\n", file, line, cond);
-		hk_Console::get_instance()->flush();
+		ivp_message("%s:%i: assertion failed : '%s'\n", file, line, cond);
 		HK_BREAK;
 	}
 }
@@ -15,8 +14,7 @@ void hk_check(bool test, const char* cond, int line, const char* file)
 {
 	if (test==false)
 	{
-		hk_Console::get_instance()->printf("%s(%i): check failed : '%s'\n", file, line, cond);
-		hk_Console::get_instance()->flush();
+		ivp_message("%s(%i): check failed : '%s'\n", file, line, cond);
 	}
 }
 

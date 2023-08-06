@@ -372,17 +372,17 @@ void hk_Incr_LU_Matrix::debug_print_l_u() {
     }
     hk_Console::get_instance()->printf("\n");
 #endif    
-    hk_Console::get_instance()->printf("  L                                      U\n");
+    ivp_message("  L                                      U\n");
     for(i=0;i<m_n_sub;i++) {
 	int j;
 	for(j=0;j<m_n_sub;j++) {
-	    hk_Console::get_instance()->printf("%.5f  ",m_L_matrix[i*m_aligned_row_len+j]);
+        ivp_message("%.5f  ",m_L_matrix[i*m_aligned_row_len+j]);
 	}
-	hk_Console::get_instance()->printf("          ");
+    ivp_message("          ");
 	for(j=0;j<m_n_sub;j++) {
-	    hk_Console::get_instance()->printf("%.5f  ",m_U_matrix[i*m_aligned_row_len+j]);
+        ivp_message("%.5f  ",m_U_matrix[i*m_aligned_row_len+j]);
 	}
-	hk_Console::get_instance()->printf("\n");
+    ivp_message("\n");
     }
 }
 

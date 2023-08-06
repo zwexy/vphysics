@@ -136,7 +136,7 @@ hk_bool hk_LCP_Solver::numerical_stability_ok() {
 	val=hk_Math::fabs( temp[actives_inactives_ignored[k]] - accel[actives_inactives_ignored[k]] );
 	if( val > HK_LCP_TEST_EPS ) {
 	    HK_LCP_IF(debug_lcs) {
-		hk_Console::get_instance()->printf("numerical_unstable %d %.10f should be %.10f\n",ignored_pos,temp[actives_inactives_ignored[k]],accel[actives_inactives_ignored[k]]);
+			ivp_message("numerical_unstable %d %.10f should be %.10f\n",ignored_pos,temp[actives_inactives_ignored[k]],accel[actives_inactives_ignored[k]]);
 	    }
 	    return HK_FALSE;
 	}
@@ -218,7 +218,7 @@ hk_result hk_LCP_Solver::solve_lcp(hk_LCP_Input &in,hk_LCP_Temp &tmp,hk_LCP_Outp
 
     //only for debug
     HK_LCP_IF((debug_no_lu_count>0) && (debug_lcs)) {
-	hk_Console::get_instance()->printf("sum_lu_failed %d\n",debug_no_lu_count);
+		ivp_message("sum_lu_failed %d\n",debug_no_lu_count);
     }
     
     HK_LCP_IF(ret_val==HK_OK) {
@@ -227,14 +227,14 @@ hk_result hk_LCP_Solver::solve_lcp(hk_LCP_Input &in,hk_LCP_Temp &tmp,hk_LCP_Outp
 	int j;
 	for(j=0;j<n_variables;j++) {
 	    if(temp[j] + 0.0001f < full_b[j]) {
-		hk_Console::get_instance()->printf("linear_constraint_failed %d %f should be greater %f\n",j,temp[j],full_b[j]);
+			ivp_message("linear_constraint_failed %d %f should be greater %f\n",j,temp[j],full_b[j]);
 	    }
 	}
 	for(j=0;j<r_actives;j++) {
 	    int index_full=actives_inactives_ignored[j];
 	    hk_real diff=hk_Math::fabs(temp[index_full] - full_b[index_full]);
 	    if(diff>0.0001f) {
-		hk_Console::get_instance()->printf("linear_constraint_failed %d %f should be equal %f\n",j,temp[index_full],full_b[index_full]);
+			ivp_message("linear_constraint_failed %d %f should be equal %f\n",j,temp[index_full],full_b[index_full]);
 	    }
 	}
     }    
@@ -272,7 +272,7 @@ void hk_LCP_Solver::increment_sub_solver() {
 	}
 	if( lu_sub_solver.increment_l_u() != HK_OK ) {
 	    HK_LCP_IF(debug_lcs) {
-		hk_Console::get_instance()->printf("\n\nincrement_lu_failed_need_setup\n\n");
+			ivp_message("\n\nincrement_lu_failed_need_setup\n\n");
 	    }
 	    sub_solver_status=2;
 	}
@@ -362,7 +362,7 @@ hk_result hk_LCP_Solver::solve_lc()
 		{
 			HK_LCP_IF(1)
 			{
-				hk_Console::get_instance()->printf("\n\ngiveup_stepcount_linear_constraint_solver\n\n\n");
+				ivp_message("\n\ngiveup_stepcount_linear_constraint_solver\n\n\n");
 			}
 			return HK_FAULT;
 		}
@@ -379,7 +379,7 @@ perform_full_setup:
 				{
 					HK_LCP_IF(1)
 					{
-						hk_Console::get_instance()->printf("\n\ngiveup_stepcount_linear_constraint_solver\n\n\n");
+						ivp_message("\n\ngiveup_stepcount_linear_constraint_solver\n\n\n");
 					}
 					return HK_FAULT;
 				}
@@ -412,20 +412,20 @@ perform_full_setup:
 				int idx=actives_inactives_ignored[k];
 				HK_LCP_IF( hk_Math::fabs( accel[idx] ) > 0.01f )
 				{
-					hk_Console::get_instance()->printf("incorrect_accel %f at %d  should be zero\n",accel[idx],idx);
+					ivp_message("incorrect_accel %f at %d  should be zero\n",accel[idx],idx);
 				}
 				HK_LCP_IF( hk_Math::fabs( full_x[idx] < solver_eps ))
 				{
 					if ( hk_Math::fabs( full_x[ignored_full_index] ) < solver_eps)
 					{
-						hk_Console::get_instance()->printf("active_var %d shouldnt be active but inactive\n",idx);
+						ivp_message("active_var %d shouldnt be active but inactive\n",idx);
 					}
 				}
 				if( full_x[idx]<0.0f )
 				{
 					HK_LCP_IF(1)
 					{
-						hk_Console::get_instance()->printf("active_var %d should be positive %f\n",idx,full_x[idx]);
+						ivp_message("active_var %d should be positive %f\n",idx,full_x[idx]);
 					}
 				}
 			}
@@ -438,15 +438,15 @@ perform_full_setup:
 				int idx=actives_inactives_ignored[k];
 				HK_LCP_IF( hk_Math::fabs( full_x[idx] ) > 0.1f )
 				{
-					hk_Console::get_instance()->printf("incorrect_x %f at %d  should be zero\n",accel[idx],idx);
+					ivp_message("incorrect_x %f at %d  should be zero\n",accel[idx],idx);
 				}
 				if(full_x[idx]<-0.001f)
 				{
-					hk_Console::get_instance()->printf("incorrect_negative_x %f at %d  should be zero\n",accel[idx],idx);
+					ivp_message("incorrect_negative_x %f at %d  should be zero\n",accel[idx],idx);
 				}
 				if( accel[idx] < 0.0f )
 				{
-					hk_Console::get_instance()->printf("warning_inactive_neg accel %d %f\n",idx,accel[idx]);
+					ivp_message("warning_inactive_neg accel %d %f\n",idx,accel[idx]);
 				}	
 			}
 		}
@@ -474,7 +474,7 @@ perform_full_setup:
 				{
 					HK_LCP_IF(debug_lcs)
 					{
-						hk_Console::get_instance()->printf("setup_lu_notok\n");
+						ivp_message("setup_lu_notok\n");
 					}
 				}
 			}
@@ -509,7 +509,7 @@ perform_full_setup:
 			{
 				HK_LCP_IF(debug_lcs)
 				{
-					hk_Console::get_instance()->printf("lcs_fdirection_total_fail\n");
+					ivp_message("lcs_fdirection_total_fail\n");
 				}
 				goto perform_full_setup;
 			}
@@ -533,7 +533,7 @@ perform_full_setup:
 				for(int j=0;j<r_actives;j++)
 				{
 					int full_index = actives_inactives_ignored[ j ];
-					hk_Console::get_instance()->printf("should be zero %f\n",delta_accel[full_index]);
+					ivp_message("should be zero %f\n",delta_accel[full_index]);
 				}
 			}
 			
@@ -542,7 +542,7 @@ perform_full_setup:
 			// step to make clamped active out of ignored_pos
 			HK_LCP_IF( accel[ ignored_full_index ] > 0.0f )
 			{
-				hk_Console::get_instance()->printf("errror_accel_ignored_negativ\n");
+				ivp_message("error_accel_ignored_negativ\n");
 			}
 			if( -accel[ ignored_full_index ] < delta_accel[ ignored_full_index ] * HK_LCP_MAX_STEP_LEN )
 			{
@@ -593,7 +593,7 @@ perform_full_setup:
 					{ // make it harder to move from inactive to active
 						HK_LCP_IF(debug_lcs)
 						{
-							hk_Console::get_instance()->printf("violate_inactive: accel %.4f  delta %.4f\n",accel[index],del_a);
+							ivp_message("violate_inactive: accel %.4f  delta %.4f\n",accel[index],del_a);
 						}			
 						// we prefer making inactives out of actives instead other way round if both is possible ( both steps are nearly zero )
 						// uuups this is all wrong
@@ -610,7 +610,7 @@ perform_full_setup:
 			{
 				HK_LCP_IF(1)
 				{
-					hk_Console::get_instance()->printf("error_stepsize_negative %f\n",smallest_step);
+					ivp_message("error_stepsize_negative %f\n",smallest_step);
 				}
 				smallest_step=0.0f;
 			}	
@@ -622,7 +622,7 @@ perform_full_setup:
 
 			HK_LCP_IF(debug_lcs)
 			{
-				hk_Console::get_instance()->printf("smallest_step_is %f\n",smallest_step);
+				ivp_message("smallest_step_is %f\n",smallest_step);
 			}
 
 limiting_var_found:
@@ -652,7 +652,7 @@ limiting_var_found:
 				
 				HK_LCP_IF(debug_lcs)
 				{
-					hk_Console::get_instance()->printf("\nactive %d becomes inactive (relp %d)\n\n",actives_inactives_ignored[limiting_var],limiting_var);
+					ivp_message("\nactive %d becomes inactive (relp %d)\n\n",actives_inactives_ignored[limiting_var],limiting_var);
 				}
 				
 				int indx=actives_inactives_ignored[limiting_var];
@@ -675,7 +675,7 @@ limiting_var_found:
 
 					HK_LCP_IF(debug_lcs)
 					{
-						hk_Console::get_instance()->printf("\ninactive %d becomes active (relp %d)\n\n",actives_inactives_ignored[limiting_var],limiting_var);
+						ivp_message("\ninactive %d becomes active (relp %d)\n\n",actives_inactives_ignored[limiting_var],limiting_var);
 					}
 					int indx=actives_inactives_ignored[limiting_var];
 					HK_ASSERT( hk_Math::fabs(accel[indx]) < 0.001f );
@@ -692,7 +692,7 @@ limiting_var_found:
 					move_not_necessary_actives_to_inactives();		    
 					HK_LCP_IF(debug_lcs)
 					{
-						hk_Console::get_instance()->printf("\nignored %d becomes active (relp %d)\n\n",actives_inactives_ignored[ignored_pos],ignored_pos);
+						ivp_message("\nignored %d becomes active (relp %d)\n\n",actives_inactives_ignored[ignored_pos],ignored_pos);
 					}
 					int indx=actives_inactives_ignored[limiting_var];
 					HK_ASSERT( hk_Math::fabs(accel[indx]) < 0.001f );
@@ -727,12 +727,12 @@ limiting_var_found:
 			did_real_step = 0; //active variables are unchanged
 			HK_LCP_IF(debug_lcs)
 			{
-				hk_Console::get_instance()->printf("ignored %d becomes inactive (relp %d)\n\n",actives_inactives_ignored[ignored_pos],ignored_pos);
+				ivp_message("ignored %d becomes inactive (relp %d)\n\n",actives_inactives_ignored[ignored_pos],ignored_pos);
 			}
 			int indx = actives_inactives_ignored[ignored_pos];
 			HK_LCP_IF( !(hk_Math::fabs(full_x[indx] ) < 0.001f) )
 			{
-				hk_Console::get_instance()->printf("error_move_ignored_to_inactive_x_not_zero\n");
+				ivp_message("error_move_ignored_to_inactive_x_not_zero\n");
 			}
 			
 			full_x[indx] = 0.0f;
@@ -784,17 +784,17 @@ void hk_LCP_Solver::exchange_activ_inactiv( int change_var ) {
 void hk_LCP_Solver::update_step_vars( hk_real step_size ) {
     int i;
     HK_LCP_IF(debug_lcs) {
-	hk_Console::get_instance()->printf("deltaa  ");
+		ivp_message("delta");
     }
     for( i = 0; i < n_variables; i++) {
 	HK_LCP_IF(debug_lcs) {
-	    hk_Console::get_instance()->printf("%f ",delta_accel[i]);
+		ivp_message("%f ",delta_accel[i]);
 	}
 	accel[ i ] = accel[i] + step_size * delta_accel[ i ]; //Vector Optimization possible
 	full_x[ i ] = full_x[ i ] + step_size * delta_x[ i ];           //dito
     }
     HK_LCP_IF(debug_lcs) {
-	hk_Console::get_instance()->printf("\n");
+		ivp_message("\n");
     }
 
     //in some cases (e.g. overriding an inactive) acceleration of inactives gets negative
@@ -885,7 +885,7 @@ hk_result hk_LCP_Solver::get_xdirection() {
 #endif
     } else {
 	HK_LCP_IF((debug_lcs)) {
-	    hk_Console::get_instance()->printf("sub_lu_is_off %d\n",r_actives);
+		ivp_message("sub_lu_is_off %d\n",r_actives);
 	}
 	debug_no_lu_count++;
 
@@ -922,51 +922,51 @@ hk_result hk_LCP_Solver::get_xdirection() {
 }
 
 void hk_LCP_Solver::start_debug_lcs() {
-    hk_Console::get_instance()->printf("b_vals ");
+	ivp_message("b_vals ");
     int i;
     int j;
     for(i=0;i<n_variables;i++) {
-	hk_Console::get_instance()->printf("%.4f ",full_b[i]);
+		ivp_message("%.4f ",full_b[i]);
     }
-    hk_Console::get_instance()->printf("\n");
+	ivp_message("\n");
     
-    hk_Console::get_instance()->printf("matrix:\n");
+	ivp_message("matrix:\n");
     for(i=0;i<n_variables;i++) {
 	for(j=0;j<n_variables;j++) {
-	    hk_Console::get_instance()->printf("%.4f ",full_A[i*aligned_size + j]);
+		ivp_message("%.4f ",full_A[i*aligned_size + j]);
 	}
-	hk_Console::get_instance()->printf("\n");
+	ivp_message("\n");
     }
-    hk_Console::get_instance()->printf("\n");
+	ivp_message("\n");
 }
 
 void hk_LCP_Solver::debug_out_lcs() {
-    hk_Console::get_instance()->printf("r_actives %d  ignored_nr %d\n",r_actives,ignored_pos);
+	ivp_message("r_actives %d  ignored_nr %d\n",r_actives,ignored_pos);
     int i;
 
     if(ignored_pos>n_variables) {
 	ignored_pos=n_variables;
     }
     
-    hk_Console::get_instance()->printf("actives_inactives  ");
+	ivp_message("actives_inactives  ");
     for(i=0;i<r_actives;i++) {
-	hk_Console::get_instance()->printf("%d ",actives_inactives_ignored[i]);
+		ivp_message("%d ",actives_inactives_ignored[i]);
     }
-    hk_Console::get_instance()->printf("  ");
+	ivp_message("  ");
     for(i=r_actives;i<ignored_pos;i++) {
-	hk_Console::get_instance()->printf("%d ",actives_inactives_ignored[i]);
+		ivp_message("%d ",actives_inactives_ignored[i]);
     }
-    hk_Console::get_instance()->printf("  ");
+	ivp_message("  ");
     for(i=ignored_pos;i<n_variables;i++) {
-	hk_Console::get_instance()->printf("%d ",actives_inactives_ignored[i]);
+		ivp_message("%d ",actives_inactives_ignored[i]);
     }
-    hk_Console::get_instance()->printf("\n");
+	ivp_message("\n");
 
-    hk_Console::get_instance()->printf("x-vals ");
+	ivp_message("x-vals ");
     for(i=0;i<n_variables;i++) {
-	hk_Console::get_instance()->printf("%.4f ",full_x[i]);
+		ivp_message("%.4f ",full_x[i]);
     }
-    hk_Console::get_instance()->printf("\n");
+	ivp_message("\n");
 
 #if 0
     full_solver_mat.desired_vector = full_x;
@@ -980,19 +980,18 @@ void hk_LCP_Solver::debug_out_lcs() {
     hk_Console::get_instance()->printf("\n");
 #endif
 
-    hk_Console::get_instance()->printf("incr_accel ");
+	ivp_message("incr_accel ");
     for(i=0;i<n_variables;i++) {
-	hk_Console::get_instance()->printf("%.4f ",accel[i]);
+		ivp_message("%.4f ",accel[i]);
     }
-    hk_Console::get_instance()->printf("\n\n");
-  
+	ivp_message("\n\n");
 }
 
 //cannot be vector optimized because of indexed access
 hk_result hk_LCP_Solver::setup_l_u_solver() {
     int i;
     HK_LCP_IF(0) {
-	hk_Console::get_instance()->printf("setting_up_lu\n");
+		ivp_message("setting_up_lu\n");
     }
     
     for(i=0; i <r_actives;i++) {
@@ -1033,7 +1032,7 @@ void hk_LCP_Solver::lcs_bubble_sort_x_vals() {
 	int i;
 	for(i=1;i<r_actives;i++) {
 	    if( full_x[ actives_inactives_ignored[ i-1 ] ] < full_x[ actives_inactives_ignored[ i ] ] ) {
-		hk_Console::get_instance()->printf("lcs_bubble_failed\n");
+			ivp_message("lcs_bubble_failed\n");
 	    }
 	}
     }
@@ -1082,12 +1081,12 @@ void hk_LCP_Solver::startup_setup(int try_actives)
 		{
 			lu_sub_solver.debug_print_l_u();
 			int j;
-			hk_Console::get_instance()->printf("\n\nline48:\n ");
+			ivp_message("\n\nline48:\n ");
 			for(j=0;j<r_actives;j++)
 			{
-				hk_Console::get_instance()->printf("%.3f ",lu_sub_solver.m_L_matrix[lu_sub_solver.m_aligned_row_len*48+j]);
+				ivp_message("%.3f ",lu_sub_solver.m_L_matrix[lu_sub_solver.m_aligned_row_len*48+j]);
 			}
-			hk_Console::get_instance()->printf("\n\n");
+			ivp_message("\n\n");
 		}
         //input vec for lu_sub_solver is filled within setup_l_u_solver
 
@@ -1151,7 +1150,7 @@ fast_setup_failed:
 // for the active variables
 hk_result hk_LCP_Solver::full_setup() {
     HK_LCP_IF(0) {
-	hk_Console::get_instance()->printf("doing_fulll_setup\n");
+		ivp_message("doing_fulll_setup\n");
     }
     
     int i;
@@ -1173,7 +1172,7 @@ hk_result hk_LCP_Solver::full_setup() {
     } else {
 	sub_solver_status = 2;
 	HK_LCP_IF(debug_lcs) {
-	    hk_Console::get_instance()->printf("setup_lu_failed\n");
+		ivp_message("setup_lu_failed\n");
 	}
 
 	lcs_bubble_sort_x_vals(); //move actives with lowest x to the end (matrix is singular and last vars get a zero)
@@ -1198,7 +1197,7 @@ hk_result hk_LCP_Solver::full_setup() {
 
 	if(ret_val!=HK_OK) {
 	    HK_LCP_IF(1) {
-		hk_Console::get_instance()->printf("error_setup_gauss_failed_too\n");
+			ivp_message("error_setup_gauss_failed_too\n");
 	    }
 	    return ret_val;
 	}
@@ -1213,7 +1212,7 @@ hk_result hk_LCP_Solver::full_setup() {
     
     if( full_setup_test_ranges() > 0 ) {
 	HK_LCP_IF(debug_lcs) {
-	    hk_Console::get_instance()->printf("\ncleared_some_illegal_vars\n\n");
+		ivp_message("\ncleared_some_illegal_vars\n\n");
 	}
 	return full_setup();
     } else {
