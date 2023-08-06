@@ -29,7 +29,6 @@ class hk_Diagonal_Matrix;
 
 #include <hk_math/vector3/vector3.h>
 #include <hk_math/vector4.h>
-#include <hk_math/plane.h>
 #include <hk_math/diagonal_matrix.h>
 #include <hk_math/quaternion/quaternion.h>
 #include <hk_math/matrix3.h>
@@ -43,7 +42,6 @@ class hk_Diagonal_Matrix;
 
 #include <hk_math/vector3/vector3.inl>
 #include <hk_math/vector4.inl>
-#include <hk_math/plane.inl>
 #include <hk_math/quaternion/quaternion.inl>
 #include <hk_math/matrix3.inl>
 #include <hk_math/rotation.inl>
