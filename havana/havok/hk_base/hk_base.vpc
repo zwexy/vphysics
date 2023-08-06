@@ -29,9 +29,9 @@ $Configuration	"Debug"
 
 	$Compiler
 	{
-		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\ivp\havana\havok;$SRCDIR\ivp\havana"
+		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\ivp\havana\havok;$SRCDIR\ivp\ivp_utility;$SRCDIR\ivp\havana"
         $PreprocessorDefinitions			"$BASE;VPHYSICS_EXPORTS;HAVANA_CONSTRAINTS;HAVOK_MOPP"
-		$Create/UsePrecompiledHeader		"Use Precompiled Header (/Yu)"
+		$Create/UsePrecompiledHeader		"Not Using Precompiled Headers"
 		$Create/UsePCHThroughFile			"hk_base/base.h"
 	}
 
@@ -39,22 +39,6 @@ $Configuration	"Debug"
 	{
 		$BasicRuntimeChecks					"Both (/RTC1, equiv. to /RTCsu)"
 		$WarningLevel						"Level 3 (/W3)"
-	}
-
-	$Compiler [$WIN32]
-	{
-		$PrecompiledHeaderFile				"$SRCDIR\ivp\obj\x86_debug\hk_base\hk_base.pch"
-		$ASMListLocation					"$SRCDIR\ivp\obj\x86_debug\hk_base\"
-		$ObjectFileName						"$SRCDIR\ivp\obj\x86_debug\hk_base\"
-		$ProgramDatabaseFileName			"$SRCDIR\ivp\obj\x86_debug\hk_base\"
-	}
-
-	$Compiler [$WIN64]
-	{
-		$PrecompiledHeaderFile				"$SRCDIR\ivp\obj\x64_debug\hk_base.pch"
-		$ASMListLocation					"$SRCDIR\ivp\obj\x64_debug\hk_base\"
-		$ObjectFileName						"$SRCDIR\ivp\obj\x64_debug\hk_base\"
-		$ProgramDatabaseFileName			"$SRCDIR\ivp\obj\x64_debug\hk_base\"
 	}
 }
 
@@ -79,9 +63,9 @@ $Configuration	"Release"
 
 	$Compiler
 	{
-		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\ivp\havana\havok;$SRCDIR\ivp\havana"
+		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\ivp\havana\havok;$SRCDIR\ivp\ivp_utility;$SRCDIR\ivp\havana"
 		$PreprocessorDefinitions			"$BASE;VPHYSICS_EXPORTS;HAVANA_CONSTRAINTS;HAVOK_MOPP"
-		$Create/UsePrecompiledHeader		"Use Precompiled Header (/Yu)"
+		$Create/UsePrecompiledHeader		"Not Using Precompiled Headers"
 		$Create/UsePCHThroughFile			"hk_base/base.h"
 	}
 
@@ -89,22 +73,6 @@ $Configuration	"Release"
 	{
 		$InlineFunctionExpansion			"Only __inline (/Ob1)"
 		$WarningLevel						"Level 3 (/W3)"
-	}
-
-	$Compiler [$WIN32]
-	{
-		$PrecompiledHeaderFile				"$SRCDIR\ivp\obj\x86_release\hk_base\hk_base.pch"
-		$ASMListLocation					"$SRCDIR\ivp\obj\x86_release\hk_base\"
-		$ObjectFileName						"$SRCDIR\ivp\obj\x86_release\hk_base\"
-		$ProgramDatabaseFileName			"$SRCDIR\ivp\obj\x86_release\hk_base\"
-	}
-
-	$Compiler [$WIN64]
-	{
-		$PrecompiledHeaderFile				"$SRCDIR\ivp\obj\x64_release\hk_base\hk_base.pch"
-		$ASMListLocation					"$SRCDIR\ivp\obj\x64_release\hk_base\"
-		$ObjectFileName						"$SRCDIR\ivp\obj\x64_release\hk_base\"
-		$ProgramDatabaseFileName			"$SRCDIR\ivp\obj\x64_release\hk_base\"
 	}
 }
 
@@ -115,7 +83,6 @@ $Project "hk_base"
 		$File	"memory\memory.cpp"
 		$File	"memory\memory.h"
 		$File	"memory\memory.inl"
-		$File	"memory\memory_managed_virtual_class.h"
 		$File	"memory\memory_util.cpp"
 		$File	"memory\memory_util.h"
 	}
@@ -125,30 +92,9 @@ $Project "hk_base"
 		$File	"array\array.cpp"
 		$File	"array\array.h"
 		$File	"array\array.inl"
-		$File	"array\pre_allocated_array.h"
 	}
 
 	$File	"stdafx.h"
 	$File	"base.h"
-	$File	"base_types.cpp"
-	{
-		$Configuration	"Debug"
-		{
-			$Compiler
-			{
-				$Create/UsePrecompiledHeader		"Create Precompiled Header (/Yc)"
-			}
-		}
-		$Configuration	"Release"
-		{
-			$Compiler
-			{
-				$Create/UsePrecompiledHeader		"Create Precompiled Header (/Yc)"
-			}
-		}
-	}
-
 	$File	"base_types.h"
-	$File	"console.cpp"
-	$File	"console.h"
 }
