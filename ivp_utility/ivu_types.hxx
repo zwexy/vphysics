@@ -7,6 +7,8 @@
 
 #ifdef _LINUX
 	#include <signal.h>
+#else
+	#include <stdio.h>
 #endif
 
 #ifdef WIN32
@@ -85,7 +87,7 @@
 		{ \
 			if(!(cond)) \
 			{ \
-				::fprintf(stderr, "\nASSERTION FAILURE: %s\nFILE: %s\nLINE: %d\n\n", ""#cond, __FILE__, __LINE__); \
+				fprintf(stderr, "\nASSERTION FAILURE: %s\nFILE: %s\nLINE: %d\n\n", ""#cond, __FILE__, __LINE__); \
 				CORE; \
 			} \
 		}

@@ -5,8 +5,8 @@ class hk_Dense_Vector
 {
 	public:
 
-		inline hk_real& operator() (int i) { HK_ASSERT(i<m_size); return m_elt[i]; }
-		inline const hk_real& operator() (int i) const { HK_ASSERT(i<m_size); return m_elt[i]; }
+		inline hk_real& operator() (int i) { IVP_ASSERT(i<m_size); return m_elt[i]; }
+		inline const hk_real& operator() (int i) const { IVP_ASSERT(i<m_size); return m_elt[i]; }
 
 		const hk_real* get_const_real_pointer() const { return m_elt; }
 		hk_real* get_real_pointer() { return m_elt; }
@@ -14,7 +14,7 @@ class hk_Dense_Vector
 		int  get_size() const { return m_size; }
 		void set_size(int size)
 		{
-			HK_ASSERT(size <= m_capacity);
+			IVP_ASSERT(size <= m_capacity);
 			m_size = size;
 		}
 

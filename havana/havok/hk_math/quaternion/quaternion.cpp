@@ -54,7 +54,7 @@ void hk_Quaternion::set(const hk_Rotation& r)
 
 void hk_Quaternion::set_axis_angle(const hk_Vector3& axis, hk_real angle)
 {
-	HK_ASSERT( hk_Math::fabs(axis.length()-1.0f) < 0.01f);
+	IVP_ASSERT( hk_Math::fabs(axis.length()-1.0f) < 0.01f);
 	hk_real half_angle = 0.5f*angle;
 	hk_Vector3::set_mul( hk_Math::sin(half_angle), axis);
 	this->w = hk_Math::cos(half_angle);
@@ -62,7 +62,7 @@ void hk_Quaternion::set_axis_angle(const hk_Vector3& axis, hk_real angle)
 
 void hk_Quaternion::set_slerp(const hk_Quaternion& q0, const hk_Quaternion& q1, hk_real t)
 {
-	//HK_ASSERT((t>=0)&&(t<=1));
+	//IVP_ASSERT((t>=0)&&(t<=1));
 
 	hk_real cos_theta = q0.dot4(q1);
 

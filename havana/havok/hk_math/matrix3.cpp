@@ -91,8 +91,8 @@ void hk_Matrix3::set_cross_skew( const hk_Vector3& r, const hk_Matrix3& R )
 
 void hk_Matrix3::set_mul3( const hk_Matrix3& Ma, const hk_Matrix3& Mb )
 {
-	HK_ASSERT(this!=&Ma);
-	HK_ASSERT(this!=&Mb);
+	IVP_ASSERT(this!=&Ma);
+	IVP_ASSERT(this!=&Mb);
 
 	for( int i = 0; i < 3; i++ )
 	{

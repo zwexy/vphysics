@@ -14,31 +14,28 @@
 class hk_Math
 {
 	public:
-		static inline hk_double fabsd( hk_double );
+		static inline hk_double fabsd( hk_double r );
 
-		static inline hk_real sqrt( hk_real );
-		static inline hk_real sqrt_inv( hk_real );
-		static inline hk_real fast_sqrt( hk_real );
-		static inline hk_real fast_sqrt_inv( hk_real );
+		static inline hk_real sqrt( hk_real r );
+		static inline hk_real sqrt_inv( hk_real r );
+		static inline hk_real fast_sqrt( hk_real r );
+		static inline hk_real fast_sqrt_inv( hk_real r );
 
-		static inline hk_real fabs( hk_real );
-		static inline hk_real tan( hk_real );
-		static inline hk_real sin( hk_real );
-		static inline hk_real cos( hk_real );
+		static inline hk_real fabs( hk_real r );
+		static inline hk_real tan( hk_real r );
+		static inline hk_real sin( hk_real r );
+		static inline hk_real cos( hk_real r );
 		static inline hk_real atan2( hk_real sinus, hk_real cosinus);
 		static inline hk_real fast_approx_atan2( hk_real sinus, hk_real cosinus); // 0.01 error
 		static inline hk_real fast_approx_atan2_normized( hk_real sinus, hk_real cosinus); // 0.01 error // input has to be normized
 		
-		static inline hk_real asin( hk_real );
-		static inline hk_real acos( hk_real );
-		static inline hk_real max( hk_real, hk_real );
-		static inline hk_real min( hk_real, hk_real );
-
-		static inline hk_real floor( hk_real );
-		static inline hk_real ceil( hk_real );
+		static inline hk_real asin( hk_real r );
+		static inline hk_real acos( hk_real r );
+		static inline hk_real floor( hk_real r );
+		static inline hk_real ceil( hk_real r );
 		static inline hk_real clamp( hk_real v, hk_real min, hk_real max );
-		static inline hk_real pow( hk_real, hk_real );
-		static inline hk_real exp( hk_real );
+		static inline hk_real pow( hk_real r, hk_real p );
+		static inline hk_real exp( hk_real r );
 
 		static void srand01( unsigned seedVal );
 		static inline hk_real rand01();

@@ -3,6 +3,8 @@
 
 #include <stddef.h> // size_t
 
+#include "ivu_types.hxx"
+
 #if defined(HK_PIII_SSE)
 #	include <xmmintrin.h>
 #endif
@@ -17,22 +19,18 @@
 #	define HK_DEBUG
 #endif
 
-#ifndef HK_ASSERT
+#ifndef HK_IF_DEBUG
 # ifdef HK_DEBUG
-#  define HK_ASSERT(a) { if(!(a)) hk_assert(a,#a,__LINE__,__FILE__); }
 #  define HK_IF_DEBUG(a) if(a)
 # else
-#  define HK_ASSERT(a) 
 #  define HK_IF_DEBUG(a) if(0)
 # endif
 #endif
 
 #if defined(HK_DEBUG)
 #	define HK_IF_CHECK(a) if (a)
-#	define HK_CHECK(a){ if(!(a)) hk_check(a,#a,__LINE__,__FILE__); }
 #else
 #	define HK_IF_CHECK(a) if (0)
-#	define HK_CHECK(a) 
 #endif
 
 // simple commonly used types
@@ -70,9 +68,6 @@ typedef float				hk_incrlu_real;
 
 //: Note that M must be a power of two for this to work.
 #define HK_NEXT_MULTIPLE_OF(M, P)  ( ((P) + ((M)-1)) & (~((M)-1)) )
-
-void hk_assert(bool test, const char* cond, int line, const char* file);
-void hk_check (bool test, const char* cond, int line, const char* file);
 
 // return values for just simple functions
 enum hk_result

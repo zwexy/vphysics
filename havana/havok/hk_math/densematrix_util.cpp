@@ -20,8 +20,8 @@ void hk_Dense_Matrix_Util::mult( const hk_Dense_Matrix& m, const hk_Dense_Vector
 	const int rows = m.get_num_rows();
 	const int cols = m.get_num_cols();
 
-	HK_ASSERT( cols == in.get_size() );
-	HK_ASSERT( in.get_size() == out.get_size() );
+	IVP_ASSERT( cols == in.get_size() );
+	IVP_ASSERT( in.get_size() == out.get_size() );
 
 	out.set_zero();
 
@@ -178,8 +178,8 @@ hk_result hk_Dense_Matrix_Util::solve(
 	int rows = m.get_num_rows();
 	int cols = m.get_num_cols();
 
-	HK_ASSERT(rows==cols);
-	HK_ASSERT(rows==v.get_size());
+	IVP_ASSERT(rows==cols);
+	IVP_ASSERT(rows==v.get_size());
   
 	for(int elim_row=0; elim_row<rows; elim_row++)
 	{

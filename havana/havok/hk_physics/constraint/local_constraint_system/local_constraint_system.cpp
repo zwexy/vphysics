@@ -253,7 +253,7 @@ void hk_Local_Constraint_System::apply_effector_PSI(hk_PSI_Info& pi, hk_Array<hk
 	const int max_constraints = 1000;
 	void* vmq_buffers[max_constraints];
 	char buffer[buffer_size];
-	HK_ASSERT(m_size_of_all_vmq_storages < buffer_size);
+	IVP_ASSERT(m_size_of_all_vmq_storages < buffer_size);
 
 	m_errorThisTick = 0;
 

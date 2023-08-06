@@ -59,7 +59,7 @@ enum hk_MEMORY_CLASS
 
 #define HK_NEW_DELETE_FUNCTION_CLASS( THIS_CLASS, MEMORY_CLASS )							\
 	inline void *operator new(size_t size){										\
-		HK_ASSERT ( sizeof( THIS_CLASS ) == size );											\
+		IVP_ASSERT ( sizeof( THIS_CLASS ) == size );											\
 		void *object = hk_Memory::get_instance()->allocate( size, MEMORY_CLASS );			\
 		return object;																		\
 	}																						\

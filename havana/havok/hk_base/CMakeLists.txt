@@ -10,6 +10,7 @@ include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 include_directories(${SRCDIR}/ivp/havana/havok)
+include_directories(${SRCDIR}/ivp/ivp_utility)
 
 add_definitions(-D_LIB -DVPHYSICS_EXPORTS)
 
@@ -24,4 +25,3 @@ endif()
 target_sources(${OUTLIBNAME} PRIVATE array/array.cpp)
 target_sources(${OUTLIBNAME} PRIVATE memory/memory.cpp)
 target_sources(${OUTLIBNAME} PRIVATE memory/memory_util.cpp)
-target_sources(${OUTLIBNAME} PRIVATE base_types.cpp)

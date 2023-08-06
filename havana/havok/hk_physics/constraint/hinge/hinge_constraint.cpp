@@ -376,7 +376,7 @@ void hk_Hinge_Constraint::apply_effector_PSI(	hk_PSI_Info& pi,
 	HK_DISPLAY_RAY(orig_ws[0], hk_Vector3(-impulse(0),-impulse(1),-impulse(2)), 0x00ffff);
 	HK_DISPLAY_RAY(line_ws[0], hk_Vector3(-impulse(3),-impulse(4),0), 0x00ffff);
 
-	HK_ASSERT(solve_ok == HK_OK);
+	IVP_ASSERT(solve_ok == HK_OK);
 
 	query_engine.apply_impulses( HK_BODY_A, b0, impulse.get_const_real_pointer() );
 	query_engine.apply_impulses( HK_BODY_B, b1, impulse.get_const_real_pointer() );
