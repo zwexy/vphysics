@@ -127,7 +127,7 @@ hk_result hk_Dense_Matrix_Util::invert_3x3_symmetric(hk_Dense_Matrix& m, hk_real
 
     hk_real D = ((hk_Vector3 *)co0)->dot(r0);	// main determinant
     
-    if( hk_Math::fabs(D)< tolerance * tolerance * tolerance ){
+    if( fabs(D) < tolerance * tolerance * tolerance ){
 		return HK_FAULT;  // cannot invert, may happen
     }
 
@@ -184,7 +184,7 @@ hk_result hk_Dense_Matrix_Util::solve(
 	for(int elim_row=0; elim_row<rows; elim_row++)
 	{
 		hk_real pivot = m(elim_row,elim_row);
-		hk_real fpivot = hk_Math::fabs(pivot);
+		hk_real fpivot = fabs(pivot);
 	
 		// pivot too small, try to find another
 		if( fpivot < tolerance )
@@ -192,11 +192,11 @@ hk_result hk_Dense_Matrix_Util::solve(
 			int swap_row = -1;
 			for(int i=elim_row+1; i<rows; i++)
 			{
-				if( hk_Math::fabs(m(i,elim_row)) > fpivot)
+				if( fabs(m(i,elim_row)) > fpivot)
 				{
 					swap_row = i;
 					pivot = m(i,elim_row);
-					fpivot = hk_Math::fabs(pivot);
+					fpivot = fabs(pivot);
 				}
 			}
 

@@ -43,9 +43,9 @@ void hk_Euler_Angles::create_rot_axis_and_angles(
 	hk_real sin_g = a0.dot(b1) * inv_cos_b;
 	hk_real cos_g = a0.dot(a1) * inv_cos_b;
 
-	angles_out.x = hk_Math::atan2( sin_a, cos_a );
-	angles_out.y = hk_Math::atan2( sin_b, cos_b );
-	angles_out.z = hk_Math::atan2( sin_g, cos_g );
+	angles_out.x = atan2( sin_a, cos_a );
+	angles_out.y = atan2( sin_b, cos_b );
+	angles_out.z = atan2( sin_g, cos_g );
 
 	taxis_ws_os_out.set_cols( a0, b, c1 );
 }

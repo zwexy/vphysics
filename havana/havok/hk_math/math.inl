@@ -1,72 +1,3 @@
-#ifdef _WIN32
-inline hk_double hk_Math::fabsd( hk_double r ) { return hk_double(::fabs(r)); }
-
-inline hk_real hk_Math::sqrt( hk_real r) { return hk_real(::sqrt(r)); }
-inline hk_real hk_Math::sqrt_inv( hk_real r) { return 1.0f / hk_real(::sqrt(r)); }
-
-inline hk_real hk_Math::fast_sqrt( hk_real r) { return hk_real(::sqrt(r)); }
-inline hk_real hk_Math::fast_sqrt_inv( hk_real r) { return 1.0f / hk_real(::sqrt(r)); }
-
-inline hk_real hk_Math::fabs( hk_real r) { return hk_real(::fabs(r)); }
-inline hk_real hk_Math::tan( hk_real r) { return hk_real(::tan(r)); }
-inline hk_real hk_Math::sin( hk_real r) { return hk_real(::sin(r)); }
-inline hk_real hk_Math::cos( hk_real r) { return hk_real(::cos(r)); }
-inline hk_real hk_Math::atan2( hk_real a, hk_real b)  { return hk_real(::atan2(a,b)); }
-inline hk_real hk_Math::asin( hk_real r) { return hk_real(::asin(r)); }
-inline hk_real hk_Math::acos( hk_real r) { return hk_real(::acos(r)); }
-
-inline hk_real hk_Math::exp( hk_real e) { return hk_real(::exp(e)); }
-
-inline hk_real hk_Math::floor( hk_real r ) { return hk_real(::floor(r)); }
-inline hk_real hk_Math::ceil( hk_real r) { return hk_real(::ceil(r)); }
-inline hk_real hk_Math::pow( hk_real r, hk_real p) { return hk_real(::pow(r,p)); }
-
-#elif POSIX
-
-namespace c_math
-{
-	extern "C"
-	{
-		double sqrt(double);
-		double fabs(double);
-		double sin(double);
-		double cos(double);
-		double tan(double);
-		double atan2(double, double);
-		double asin(double);
-		double acos(double);
-		double exp(double);
-		double floor(double);
-		double ceil(double);
-		double pow(double, double);
-	}
-}
-
-inline hk_double hk_Math::fabsd( hk_double r ) { return hk_double(c_math::fabs(r)); }
-
-inline hk_real hk_Math::sqrt( hk_real r) { return hk_real(c_math::sqrt(r)); }
-inline hk_real hk_Math::sqrt_inv( hk_real r) { return 1.0f / hk_real(c_math::sqrt(r)); }
-
-inline hk_real hk_Math::fast_sqrt( hk_real r) { return hk_real(c_math::sqrt(r)); }
-inline hk_real hk_Math::fast_sqrt_inv( hk_real r) { return 1.0f / hk_real(c_math::sqrt(r)); }
-
-inline hk_real hk_Math::fabs( hk_real r) { return hk_real(c_math::fabs(r)); }
-inline hk_real hk_Math::tan( hk_real r) { return hk_real(c_math::tan(r)); }
-inline hk_real hk_Math::sin( hk_real r) { return hk_real(c_math::sin(r)); }
-inline hk_real hk_Math::cos( hk_real r) { return hk_real(c_math::cos(r)); }
-inline hk_real hk_Math::atan2( hk_real a, hk_real b)  { return hk_real(c_math::atan2(a,b)); }
-inline hk_real hk_Math::asin( hk_real r) { return hk_real(c_math::asin(r)); }
-inline hk_real hk_Math::acos( hk_real r) { return hk_real(c_math::acos(r)); }
-inline hk_real hk_Math::max( hk_real a, hk_real b) { return a>b ? a : b; }
-inline hk_real hk_Math::min( hk_real a, hk_real b) { return a<b ? a : b; }
-
-inline hk_real hk_Math::exp( hk_real e) { return hk_real(c_math::exp(e)); }
-
-inline hk_real hk_Math::floor( hk_real r ) { return hk_real(c_math::floor(r)); }
-inline hk_real hk_Math::ceil( hk_real r) { return hk_real(c_math::ceil(r)); }
-inline hk_real hk_Math::pow( hk_real r, hk_real p) { return hk_real(c_math::pow(r,p)); }
-#endif
-
 inline hk_real hk_Math::clamp( hk_real r, hk_real mn, hk_real mx)
 {
 	IVP_ASSERT(mn<=mx);
@@ -75,7 +6,21 @@ inline hk_real hk_Math::clamp( hk_real r, hk_real mn, hk_real mx)
 				: ((r>mx) ? mx : r));
 }
 
-inline int hk_Math::int_log2( hk_real ) { return 0; }
+inline hk_real hk_Math::fast_rsqrt( hk_real num )
+{
+	long i;
+	float x2, y;
+	const float threehalfs = 1.5f;
+
+	x2 = num * 0.5F;
+	y = num;
+	i = *( long * ) &y; // evil floating point bit level hacking
+	i = 0x5f3759df - ( i >> 1 ); // what the fuck?
+	y = *( float * ) &i;
+	y = y * ( threehalfs - ( x2 * y * y ) );
+
+	return y;
+}
 
 inline hk_real hk_Math::rand01()
 {
@@ -123,7 +68,7 @@ inline hk_real hk_Math::fast_approx_atan2( hk_real y, hk_real x)
 	//const hk_real f = delta_at_pi_4 / hk_Math::sin(HK_PI * 0.25f) / hk_Math::sin(HK_PI * 0.25f)/ hk_Math::sin(HK_PI * 0.25f);
 	const hk_real f = 0.2214414775f;
 	hk_real r;
-	hk_real q = hk_Math::sqrt_inv( x * x + y * y );
+	hk_real q = hk_Math::fast_rsqrt( x * x + y * y );
 	if ( x > y ){
 		if ( x > - y){
 			y *= q;

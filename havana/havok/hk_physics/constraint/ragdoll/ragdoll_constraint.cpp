@@ -92,15 +92,15 @@ void hk_Ragdoll_Constraint::init_ragdoll_constraint(const hk_Ragdoll_Constraint_
 	hk_real center_cone = (bp->m_limits[HK_LIMIT_CONE].m_limit_max  + bp->m_limits[HK_LIMIT_CONE].m_limit_min) * 0.5f;
 	hk_real diff_cone   =  bp->m_limits[HK_LIMIT_CONE].m_limit_max  - bp->m_limits[HK_LIMIT_CONE].m_limit_min;
 
-	if ( hk_Math::fabs( center_cone ) > 0.001f ){
+	if ( fabs( center_cone ) > 0.001f ){
 		m_transform_os_ks[0].rotate( 2, center_cone);
 	}
-	m_limits[HK_LIMIT_CONE].m_limit_min = hk_Math::cos(0.5f * diff_cone);
+	m_limits[HK_LIMIT_CONE].m_limit_min = cos(0.5f * diff_cone);
 	m_limits[HK_LIMIT_CONE].m_limit_max = 100.0f;
 
 
-	m_limits[HK_LIMIT_PLANES].m_limit_min = -hk_Math::sin( bp->m_limits[HK_LIMIT_PLANES].m_limit_max );
-	m_limits[HK_LIMIT_PLANES].m_limit_max = -hk_Math::sin( bp->m_limits[HK_LIMIT_PLANES].m_limit_min );
+	m_limits[HK_LIMIT_PLANES].m_limit_min = -sin( bp->m_limits[HK_LIMIT_PLANES].m_limit_max );
+	m_limits[HK_LIMIT_PLANES].m_limit_max = -sin( bp->m_limits[HK_LIMIT_PLANES].m_limit_min );
 	// note: the max min and directions are reversed !!!!!!!!!
 	m_inputLimits[0] = bp->m_limits[0];
 	m_inputLimits[1] = bp->m_limits[1];
@@ -224,7 +224,7 @@ int	hk_Ragdoll_Constraint::setup_and_step_constraint(
 
 			hk_Vector3 a_us; a_us.set_rotated_inv_dir ( m_ws_us, perp_axes_Att_ws );
 
-			work.joint_angles( HK_LIMIT_TWIST ) = -hk_Math::atan2( a_us.y, a_us.z);
+			work.joint_angles( HK_LIMIT_TWIST ) = -atan2( a_us.y, a_us.z);
 		}
 		// planes setup
 		work.joint_angles( HK_LIMIT_CONE )   = work.twist_axis_Ref_ws.dot( work.twist_axis_Att_ws );

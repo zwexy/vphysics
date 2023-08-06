@@ -165,7 +165,7 @@ int	hk_Hinge_Constraint::setup_and_step_constraint(
 
 		hk_real sin_alpha = perp_x2_ws.dot( perp_y_ws );
 		hk_real cos_alpha = perp_x2_ws.dot( perp_x_ws );
-		hk_real alpha = hk_Math::atan2( sin_alpha, cos_alpha );
+		hk_real alpha = atan2( sin_alpha, cos_alpha );
 		
 		hk_Constraint_Limit_Util::do_angular_limit( pi, b0, line_ws[0], alpha, b1, m_limit, tau_factor, strength_factor );
 	}

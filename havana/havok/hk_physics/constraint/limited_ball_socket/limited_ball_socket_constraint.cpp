@@ -147,9 +147,9 @@ int	hk_Limited_Ball_Socket_Constraint::setup_and_step_constraint(
 				joint_axes.set_mul3( t_ws_ks[0], half_rot );
 			}
 
-			work.joint_angles.set(	2.0f * hk_Math::asin(q_ks0_ks1.x),
-									2.0f * hk_Math::asin(q_ks0_ks1.y),
-									2.0f * hk_Math::asin(q_ks0_ks1.z));
+			work.joint_angles.set(	2.0f * asin(q_ks0_ks1.x),
+									2.0f * asin(q_ks0_ks1.y),
+									2.0f * asin(q_ks0_ks1.z));
 			if ( q_ks0_ks1.w < 0.0f){
 				work.joint_angles *= -1.0f;
 			}
