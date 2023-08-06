@@ -25,13 +25,8 @@
     #define IVP_VECFPU_LD 2
     #define IVP_VECFPU_MASK 0xfffffffc 
 
-    #ifdef IVP_NO_DOUBLE
-    #	define IVP_VECFPU_MEM_MASK 0xfffffff0 //16Byte
-    #	define IVP_VECFPU_MEMSHIFT 2 //4 Bytes per Floating Point Number
-    #else
-    #	define IVP_VECFPU_MEM_MASK 0xffffffe0 //32Byte
-    #	define IVP_VECFPU_MEMSHIFT 3 //8 Bytes per Floating Point Number
-    #endif
+    #define IVP_VECFPU_MEM_MASK 0xffffffe0 //32Byte
+    #define IVP_VECFPU_MEMSHIFT 3 //8 Bytes per Floating Point Number
 #endif
 #endif
 

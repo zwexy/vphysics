@@ -16,7 +16,6 @@
 //#define IVP_WILLAMETTE	/* set for Willamette specific code */
 //#define IVP_WMT_ALIGN		/* set to compile with MS but Willamette compatible */
 #endif
-//#define IVP_NO_DOUBLE    /* set if processor has no double floating point unit, or lib should use float only */
 #define IVP_VECTOR_UNIT_FLOAT  /* set if extra data is inserted to support vector units */
 #define IVP_VECTOR_UNIT_DOUBLE /* set if extra data should be insersted to utilize double vector units */
 
@@ -28,11 +27,6 @@
 
 #if  defined(IVP_WILLAMETTE) || defined(IVP_PIII) || defined(IVP_WMT_ALIGN)
 #define IVP_WINDOWS_ALIGN16
-#endif
-
-// recheck the settings for various computers
-#if !defined(IVP_NO_DOUBLE) && (defined(GEKKO) || defined(_XBOX))
-#define IVP_NO_DOUBLE
 #endif
 
 #if !defined(IVP_VECTOR_UNIT_DOUBLE)
@@ -103,7 +97,6 @@ typedef int IVP_INT32;
 typedef unsigned int IVP_UINT32;
 
 // ************************
-#ifndef IVP_NO_DOUBLE
 typedef double IVP_DOUBLE;
 class IVP_Time {
     double seconds;
@@ -120,34 +113,6 @@ public:
     IVP_Time() = default;
     IVP_Time(double time){ seconds = time; };
 };
-
-#else
-// ************************
-typedef float IVP_DOUBLE;
-class IVP_Time {
-    float seconds;
-    float sub_seconds;
-public:
-    void operator+=(float val){
-	sub_seconds += val;
-	while (sub_seconds > 1.0f){    seconds ++;    sub_seconds -= 1.0f;	}
-    }
-    float get_seconds() const { return seconds; };
-    float get_time() const{ return seconds + sub_seconds; }; // for debugging
-    float operator-(const IVP_Time &b) const { return (this->seconds - b.seconds) + this->sub_seconds - b.sub_seconds; }
-    void operator-=(const IVP_Time b) { this->seconds -= b.seconds; this->sub_seconds -= b.sub_seconds;
-    	while (sub_seconds > 1.0f){    seconds ++;    sub_seconds -= 1.0f;	}
-    	while (sub_seconds < 0.0f){    seconds --;    sub_seconds += 1.0f;	}
-    }
-    IVP_Time operator+(float val) const {
-	IVP_Time result; result.seconds = this->seconds; result.sub_seconds = this->sub_seconds + val;
-	while (result.sub_seconds > 1.0f){    result.seconds ++;    result.sub_seconds -= 1.0f;	}
-	return result;
-    }
-    IVP_Time(){;};
-    IVP_Time(float time){ seconds = float(int(time)); sub_seconds = time - int(time); };
-};
-#endif
  
 typedef IVP_FLOAT IVP_HTIME;
 
@@ -240,23 +205,13 @@ extern void ivp_memory_check(void *a);
 #define P_FLOAT_RES 1e-6f	// float resolution for numbers < 1.0
 #define P_FLOAT_MAX 1e16f
 
-#ifdef IVP_NO_DOUBLE
-#	define IVP_PI        3.14159265358979323846f	/* pi */
-#	define IVP_PI_2      1.57079632679489661923f	/* pi/2 */
-#	define P_DOUBLE_MAX P_FLOAT_MAX
-#	define P_DOUBLE_RES P_FLOAT_RES	// double resolution for numbers < 1.0
-#	define IVP_3D_SOLVER_NULLSTELLE_EPS 3e-3f
-#	define P_DOUBLE_EPS P_FLOAT_EPS	// used for division checking
-#	define P_MAX_WORLD_DOUBLE 3000.0f // max world koords
-#else
-#	define IVP_PI        3.14159265358979323846	/* pi */
-#	define IVP_PI_2      1.57079632679489661923	/* pi/2 */
-#	define P_DOUBLE_MAX 1e20
-#	define P_DOUBLE_RES 1E-12	// double resolution for numbers < 1.0
-#	define IVP_3D_SOLVER_NULLSTELLE_EPS 1e-8
-#	define P_DOUBLE_EPS 1e-10	// used for division checking
-#	define P_MAX_WORLD_DOUBLE 10000 // max world koords
-#endif
+#define IVP_PI        3.14159265358979323846	/* pi */
+#define IVP_PI_2      1.57079632679489661923	/* pi/2 */
+#define P_DOUBLE_MAX 1e20
+#define P_DOUBLE_RES 1E-12	// double resolution for numbers < 1.0
+#define IVP_3D_SOLVER_NULLSTELLE_EPS 1e-8
+#define P_DOUBLE_EPS 1e-10	// used for division checking
+#define P_MAX_WORLD_DOUBLE 10000 // max world koords
 
 #define P_MAX_OBJECT_SIZE 1000.0f 
 #define P_MIN_EDGE_LEN 0.01f	// 10 mm min edge len of polygon objects

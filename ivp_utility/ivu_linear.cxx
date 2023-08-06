@@ -38,7 +38,6 @@ IVP_DOUBLE IVP_Inline_Math::isqrt_double(IVP_DOUBLE quad){
     return IVP_Fast_Math::isqrt(quad,3);
 }
 
-#if !defined(IVP_NO_DOUBLE)
 void IVP_U_Point::set_interpolate(const IVP_U_Point *p0,const IVP_U_Point *p1, IVP_DOUBLE s)
 {
     IVP_DOUBLE is = 1.0f - s;
@@ -64,7 +63,6 @@ void IVP_U_Point::set_interpolate(const IVP_U_Float_Point *p0,const IVP_U_Float_
 
     k[0] = a; k[1] = b; k[2] = c + c2;
 }
-#endif
 
 void IVP_U_Float_Point::set_interpolate(const IVP_U_Float_Point *p0,const IVP_U_Float_Point *p1, IVP_DOUBLE s)
 {
@@ -83,7 +81,7 @@ IVP_DOUBLE IVP_U_Float_Point::real_length()const{
     return IVP_Inline_Math::sqrtd(this->quad_length());
 }
 
-#if !defined(IVP_NO_DOUBLE)
+
 IVP_DOUBLE IVP_U_Point::real_length()const{
     return IVP_Inline_Math::sqrtd(this->quad_length());
 }
@@ -107,9 +105,6 @@ IVP_DOUBLE IVP_U_Point::real_length_plus_normize() {
     this->mult(f);
     return f * qlength; //qlength * f;
 }
-#endif
-
-
 
 IVP_DOUBLE IVP_U_Float_Point::real_length_plus_normize() {
     IVP_DOUBLE qlength = this->quad_length();
@@ -140,7 +135,6 @@ IVP_RETURN_TYPE IVP_U_Float_Point::normize(){
     return IVP_OK;
 }
 
-#if !defined(IVP_NO_DOUBLE)
 IVP_RETURN_TYPE IVP_U_Point::normize(){
     IVP_DOUBLE length = this->quad_length();
     if (length< P_DOUBLE_EPS ) return IVP_FAULT;
@@ -148,7 +142,6 @@ IVP_RETURN_TYPE IVP_U_Point::normize(){
     this->mult(f);
     return IVP_OK;
 }
-#endif
 
 void IVP_U_Float_Point::line_sqrt(){
     k[0] = IVP_Inline_Math::ivp_sqrtf(k[0]);
@@ -172,11 +165,9 @@ void IVP_U_Float_Point::set_orthogonal_part(const IVP_U_Float_Point *vector,cons
     this->add_multiple(vector,normal_v,-part_direction);
 }
 
-#if !defined(IVP_NO_DOUBLE)
 void IVP_U_Point::calc_cross_product(const IVP_U_Point *v1,const IVP_U_Point *v2){
     inline_calc_cross_product(v1,v2);
 }
-#endif
 
 void IVP_U_Float_Point::calc_cross_product(const IVP_U_Float_Point *v1,const IVP_U_Float_Point *v2)
 {
@@ -238,13 +229,10 @@ IVP_BOOL IVP_U_Point::is_parallel(const IVP_U_Point *v_in, IVP_DOUBLE eps)const 
     return( (IVP_BOOL)(c.quad_length() <= eps*eps * v1.quad_length() * v2.quad_length()) );
 }
 
-
-#if !defined(IVP_NO_DOUBLE)
 IVP_DOUBLE IVP_U_Point::fast_real_length() const {
     IVP_DOUBLE ql = this->quad_length();
     return IVP_Fast_Math::sqrt(ql);
 }
-#endif
 
 IVP_DOUBLE IVP_U_Float_Point::fast_real_length() const {
     IVP_DOUBLE ql = this->quad_length();
@@ -1059,14 +1047,13 @@ void IVP_U_Matrix::set_transpose(const IVP_U_Matrix *in){
 	vv.set_negative(&v_shift_korr);
 };
 
-#if !defined(IVP_NO_DOUBLE)
 void IVP_U_Matrix::vimult4( const IVP_U_Point *p_in, IVP_U_Float_Point * p_out )const{
     inline_vimult4(p_in,p_out);
 };
+
 void IVP_U_Matrix::vimult4( const IVP_U_Point *p_in, IVP_U_Point * p_out )const{
     inline_vimult4(p_in,p_out);
 };
-#endif
 
 void IVP_U_Matrix::vimult4( const IVP_U_Float_Point *p_in, IVP_U_Float_Point * p_out )const{
     inline_vimult4(p_in,p_out);
@@ -1077,7 +1064,6 @@ void IVP_U_Matrix::vmult4( const IVP_U_Float_Point *p_in, IVP_U_Float_Point * p_
     inline_vmult4(p_in,p_out);
 };
 
-#if !defined(IVP_NO_DOUBLE)
 void IVP_U_Matrix::vmult4( const IVP_U_Point *p_in, IVP_U_Point * p_out )const{
     inline_vmult4(p_in,p_out);
 };
@@ -1085,13 +1071,11 @@ void IVP_U_Matrix::vmult4( const IVP_U_Point *p_in, IVP_U_Point * p_out )const{
 void IVP_U_Matrix::vmult4( const IVP_U_Float_Point *p_in, IVP_U_Point * p_out )const{
     inline_vmult4(p_in,p_out);
 };
-#endif
 
 void IVP_U_Matrix3::vmult3( const IVP_U_Float_Point *p_in, IVP_U_Float_Point * p_out )const{
     inline_vmult3(p_in,p_out);
 };
 
-#if !defined(IVP_NO_DOUBLE)
 void IVP_U_Matrix3::vmult3( const IVP_U_Point *p_in, IVP_U_Point * p_out )const{
     inline_vmult3(p_in,p_out);
 };
@@ -1099,7 +1083,6 @@ void IVP_U_Matrix3::vmult3( const IVP_U_Point *p_in, IVP_U_Point * p_out )const{
 void IVP_U_Matrix3::vimult3( const IVP_U_Point *p_in, IVP_U_Point * p_out )const{
     inline_vimult3(p_in,p_out);
 };
-#endif
 
 void IVP_U_Matrix3::vimult3( const IVP_U_Float_Point *p_in, IVP_U_Float_Point * p_out )const{
     inline_vimult3(p_in,p_out);

@@ -11,12 +11,10 @@
 #   include "ivu_linear_software.hxx"
 #endif
 
-#if !defined(IVP_NO_DOUBLE)
-#   if defined(IVP_WILLAMETTE)
-#      include "ivu_linear_willamette.hxx"
-#   else
-#      include "ivu_linear_double.hxx"
-#   endif
+#if defined(IVP_WILLAMETTE)
+#   include "ivu_linear_willamette.hxx"
+#else
+#   include "ivu_linear_double.hxx"
 #endif
 
 
@@ -31,13 +29,11 @@ inline void IVP_U_Float_Point3::set(const IVP_FLOAT p[3]){
     k[2]= p[2];
 }
 
-#if !defined(IVP_NO_DOUBLE)
 inline void IVP_U_Float_Point3::set(const IVP_DOUBLE p[3]){
     k[0]= p[0];
     k[1]= p[1];
     k[2]= p[2];
 }
-#endif
 
 inline void IVP_U_Float_Point::set(const IVP_FLOAT p[3]){
     k[0]= p[0];
